@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
             // cascadeOnDelete = se um produto for excluido, todos os items desse produto serão excluidos
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->integer('quantidade');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
