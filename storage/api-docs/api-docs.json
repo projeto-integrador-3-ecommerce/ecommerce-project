@@ -1,0 +1,31 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "E-commerce 3D Laravel",
+        "description": "API for an e-commerce platform for 3D printed products.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Teste"
+                ],
+                "summary": "Teste",
+                "description": "Rota de teste da API",
+                "operationId": "fdf4b25e3cfc72618dfc3f44cda65365",
+                "responses": {
+                    "200": {
+                        "description": "Ok. Funcionando."
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Teste",
+            "description": "Teste"
+        }
+    ]
+}
