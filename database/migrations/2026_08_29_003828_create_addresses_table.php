@@ -16,13 +16,13 @@ return new class extends Migration
             // cascadeOnDelete = se um user for excluido, todas as suas addresses tambem serao excluidas
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('cep');
-            $table->string('logradouro');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('estado');
-            $table->string('complemento')->nullable();
-            $table->string('numero');
-            $table->string('pais');
+            $table->string('street');
+            $table->string('neighborhood');
+            $table->string('city');
+            $table->string('state');
+            $table->string('complement')->nullable();
+            $table->string('number');
+            $table->string('country');
             $table->timestamps();
         });
     }
