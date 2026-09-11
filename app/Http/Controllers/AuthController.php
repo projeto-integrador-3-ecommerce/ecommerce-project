@@ -81,4 +81,23 @@ class AuthController extends Controller
 
         return back()->withErrors(['email' =>'We could not find a user with that email address.',]);
     }
+
+    public function resetPassword(Request $req){
+        $data = $req->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $status = Password::reset($data, function($user, $password){
+            $user->password = $password;
+            $user->save();
+        });
+
+        if($status == Password::PASSWORD_RESET){
+            return redirect()->route('login')->with('status', 'Password reset successfully!');
+        };
+
+        return back()->withErrors(['email' => 'The password reset link is invalid or has expired.',]);
+    }
 }

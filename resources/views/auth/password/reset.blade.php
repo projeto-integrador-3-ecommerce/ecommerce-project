@@ -4,7 +4,7 @@
 
     <h1>Forgot Password?</h1>
 
-    <form method="POST" action="{{ route('password.reset') }}">
+    <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <div>

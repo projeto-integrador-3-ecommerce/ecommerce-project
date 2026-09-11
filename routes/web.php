@@ -33,21 +33,23 @@ Route::get('/auth/register', function () {
 Route::post('/auth/register', [AuthController::class, 'register'])
 ->name('register.store');
 
+// mostra a tela "Esqueci minha senha"
 Route::get('/auth/password/reset', function () {
     return view('auth.password.reset');
-})->name('password');
+})->name('password.request');
 
+// recebe o email e envia o link
 Route::post('/auth/password/reset', [AuthController::class, 'reset'])
-->name('password.reset');
+    ->name('password.email');
 
-// Route::get('/test-email', function(){
-//     \Illuminate\Support\Facades\Mail::raw(
-//         'Este é um teste de email do Laravel',
-//         function($message){
-//             $message
-//             ->to("teste@example.com")
-//             ->subject("Teste Laravel + Mailpit");
-//         }
-//     );
-//     return 'Email enviado com sucesso';
-// });
+// abre a tela de nova senha
+Route::get('/auth/password/reset/{token}', function (string $token) {
+    return view('auth.password.reset-password', [
+        'token' => $token,
+        'email' => request('email'),
+    ]);
+})->name('password.reset');
+
+// recebe a nova senha
+Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])
+    ->name('password.update');
