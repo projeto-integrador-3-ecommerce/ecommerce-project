@@ -26,10 +26,28 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])
 // ->name = significa que estamos dando o nome pra rota de 'logout'
 ->name('logout');
 
-
 Route::get('/auth/register', function () {
     return view('auth.register');
 })->name('register');
 
 Route::post('/auth/register', [AuthController::class, 'register'])
 ->name('register.store');
+
+Route::get('/auth/password/reset', function () {
+    return view('auth.password.reset');
+})->name('password');
+
+Route::post('/auth/password/reset', [AuthController::class, 'reset'])
+->name('password.reset');
+
+// Route::get('/test-email', function(){
+//     \Illuminate\Support\Facades\Mail::raw(
+//         'Este é um teste de email do Laravel',
+//         function($message){
+//             $message
+//             ->to("teste@example.com")
+//             ->subject("Teste Laravel + Mailpit");
+//         }
+//     );
+//     return 'Email enviado com sucesso';
+// });
