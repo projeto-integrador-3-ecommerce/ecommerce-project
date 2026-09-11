@@ -3,23 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-<<<<<<< Updated upstream
-Route::get('/', function () {
-    return view('welcome');
-});
-=======
 
 // rota teste = raíz
 Route::get('/', function () {
-    return response()->json([
-        'message' => 'Ok. Funcionando.',
-    ]);
+    return redirect()->route('login');
 });
 
 // rota de login que exibe formulário de login
 Route::get('/login', function (){
-    return view('login');
-});
+    return view('auth.login');
+})->name('login');
 
 // rota login e logout
 Route::post('/login', [AuthController::class, 'login'])
@@ -34,4 +27,3 @@ Route::post('/logout', [AuthController::class, 'logout'])
 ->name('logout');
 
 
->>>>>>> Stashed changes

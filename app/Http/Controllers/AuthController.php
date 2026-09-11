@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use iluminate\Http\Request;
-use iluminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -33,7 +33,7 @@ class AuthController extends Controller
     }
 
     // validação logout
-    public function logout(Request $reqt){
+    public function logout(Request $req){
         // diz ao laravel que o usuário não está mais autenticado, ele limpa a sessão do usuário
         Auth::logout();
 
