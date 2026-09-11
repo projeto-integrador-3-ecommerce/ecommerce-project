@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-
 // rota teste = raíz
 Route::get('/', function () {
     return redirect()->route('login');
@@ -53,5 +52,4 @@ Route::get('/auth/password/reset/{token}', function (string $token) {
 })->name('password.reset');
 
 // recebe a nova senha
-Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])
-    ->name('password.update');
+Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])->name('password.update');
