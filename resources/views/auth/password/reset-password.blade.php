@@ -4,9 +4,11 @@
 
     <h1>Reset Password</h1>
 
+    <!-- tela de trocar senha chamando a rota update -->
     <form action="{{ route('password.update') }}" method="POST">
         @csrf
 
+        <!-- token que o laravel valida se é a pessoa mesmo -->
         <input type="hidden" name="token" value="{{ $token }}">
 
         <div>

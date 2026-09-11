@@ -1,9 +1,10 @@
 @extends('layouts.app')
-
+<!-- herdando html do layouts -->
 @section('content')
 
     <h1>Forgot Password?</h1>
 
+    <!-- forma que envia pra rota de post que envia o email pro laravel e laravel envia pra outra rota -->
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
@@ -22,6 +23,7 @@
         </div>
     @endif
 
+    <!-- exibe status se o email foi encontrado ou nao -->
     @if(session('status'))
         <div>
             {{ session('status') }}

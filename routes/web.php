@@ -26,10 +26,12 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])
 // ->name = significa que estamos dando o nome pra rota de 'logout'
 ->name('logout');
 
+// rota que exibe a tela de registro de conta
 Route::get('/auth/register', function () {
     return view('auth.register');
 })->name('register');
 
+// rota de registro de conta
 Route::post('/auth/register', [AuthController::class, 'register'])
 ->name('register.store');
 
