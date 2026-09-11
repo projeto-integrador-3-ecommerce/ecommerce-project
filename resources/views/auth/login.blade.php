@@ -15,6 +15,8 @@
         <input type="password" id="password" name="password">
 
         <button type="submit">Login</button>
+        <button><a href="/auth/register">Register</a></button>
+        <button><a href="/auth/password/reset">Forgot password?</a></button>
 
     </form>
 

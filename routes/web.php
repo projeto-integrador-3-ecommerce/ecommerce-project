@@ -10,16 +10,16 @@ Route::get('/', function () {
 });
 
 // rota de login que exibe formulário de login
-Route::get('/login', function (){
+Route::get('/auth/login', function (){
     return view('auth.login');
 })->name('login');
 
 // rota login e logout
-Route::post('/login', [AuthController::class, 'login'])
+Route::post('/auth/login', [AuthController::class, 'login'])
 // ->name = significa que estamos dando o nome pra rota de 'login'
 ->name('login.store');
 
-Route::post('/logout', [AuthController::class, 'logout'])
+Route::post('/auth/logout', [AuthController::class, 'logout'])
 // middleware = só algúem que já está autenticado pode usar essa rota
 // middleware pergunta = está logado? se sim deixa seguir pra essa rota
 ->middleware('auth')
@@ -27,3 +27,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 ->name('logout');
 
 
+Route::get('/auth/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::post('/auth/register', [AuthController::class, 'register'])
+->name('register.store');
