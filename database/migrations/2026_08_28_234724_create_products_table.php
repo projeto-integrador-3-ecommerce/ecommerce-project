@@ -16,17 +16,17 @@ return new class extends Migration
             // foreignId significa foreing key = chave estrangeira
             // constrained = relacionamento
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('nome');
+            $table->string('name');
             // string = textos curtos
             // text = textos longos
-            $table->text('descricao');
-            $table->decimal('preco', 10, 2);
-            $table->integer('estoque');
-            $table->string('cor');
-            $table->string('tamanho');
+            $table->text('description');
+            $table->decimal('price', 10, 2);
+            $table->integer('stock');
+            $table->string('color');
+            $table->string('size');
             $table->string('material');
             // nullable significa que um produto pode vir inicialmente sem uma img
-            $table->string('imagem')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

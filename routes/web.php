@@ -1,19 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProductController;
->>>>>>> Stashed changes
 
+// rota teste = raíz
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
-<<<<<<< Updated upstream
-=======
 
-// ======= ROTA DE AUTENTICAÇÃO =======
 // rota de login que exibe formulário de login
 Route::get('/auth/login', function (){
     return view('auth.login');
@@ -58,10 +52,4 @@ Route::get('/auth/password/reset/{token}', function (string $token) {
 })->name('password.reset');
 
 // recebe a nova senha
-Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])
-    ->name('password.update');
-
-// ======= ROTA DE PRODUTOS =======
-Route::get('/products', [ProductController::class, 'index'])
-->name('products.index');
->>>>>>> Stashed changes
+Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])->name('password.update');
