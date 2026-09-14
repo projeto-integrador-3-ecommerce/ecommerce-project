@@ -17,7 +17,7 @@ return new class extends Migration
             // um pedido pode ter mais de um pagamento
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->string('status');
-            $table->string('metodo');
+            $table->string('method');
             $table->timestamps();
         });
     }
