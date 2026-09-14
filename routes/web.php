@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 
 // rota teste = raíz
 Route::get('/', function () {
@@ -53,3 +54,22 @@ Route::get('/auth/password/reset/{token}', function (string $token) {
 
 // recebe a nova senha
 Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])->name('password.update');
+
+// rota de listagem de produtos
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// rota de criar produtos
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
+// rota de criar produtos
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+// rota que lista apenas um produto
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// rota de editar produtos
+Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');   
+
+// rota de atualizar produtos
+Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+

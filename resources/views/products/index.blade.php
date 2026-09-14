@@ -10,6 +10,6 @@
         @endforeach
     </ul>
 
-    <button><a href="">Cadastrar Produto</a></button>
+    <button><a href="/products/create">Cadastrar Produto</a></button>
 
 @endsection
