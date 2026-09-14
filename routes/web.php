@@ -73,3 +73,4 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 // rota de atualizar produtos
 Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
+Route::post('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');

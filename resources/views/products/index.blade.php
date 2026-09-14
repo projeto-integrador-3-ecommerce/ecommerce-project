@@ -7,6 +7,10 @@
     <ul>
         @foreach($products as $product)
             <li>{{ $product->name }} - ${{ $product->price }}</li>
+            <form action="/products/{{ $product->id }}" method="POST">
+                @csrf
+                <button type="submit">Excluir Produto</button>
+            </form>
         @endforeach
     </ul>
 
