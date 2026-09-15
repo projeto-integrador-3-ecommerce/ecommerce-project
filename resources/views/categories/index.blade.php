@@ -9,5 +9,6 @@
             <option value="{{ $category->id }}">{{ $category->name }}</option>
         @endforeach
     </select>
+    <button><a href="/categories/create">Criar Categoria</a></button>
 
 @endsection

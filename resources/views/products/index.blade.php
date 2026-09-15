@@ -15,6 +15,6 @@
     </ul>
 
     <button><a href="/products/create">Cadastrar Produto</a></button>
-    <button><a href="">Visualizar categorias</a></button>
+    <button><a href="/categories">Visualizar categorias</a></button>
 
 @endsection
