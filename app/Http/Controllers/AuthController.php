@@ -47,6 +47,7 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    // função que registra a conta e envia pro banco
     public function register(Request $req){
         $credentials = $req->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -66,6 +67,7 @@ class AuthController extends Controller
         return redirect()->intended('/products');
     }
 
+    // função que verifica se o email de resetar a senha é válido e envia o link
     public function reset(Request $req){
         $req->validate([
             'email' => ['required', 'email'],
@@ -82,6 +84,7 @@ class AuthController extends Controller
         return back()->withErrors(['email' =>'We could not find a user with that email address.',]);
     }
 
+    // função que reseta e atualiza a senha no banco
     public function resetPassword(Request $req){
         $data = $req->validate([
             'token' => ['required'],

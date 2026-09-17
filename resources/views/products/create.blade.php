@@ -15,7 +15,11 @@
         </div>
         <div>
             <label>Categoria do Produto:</label>
-            <input type="text" name="category_id" required>
+            <select name="category_id" id="">
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div>
             <label>Preço do Produto:</label>
@@ -39,6 +43,7 @@
         </div>
 
         <button type="submit">Criar Produto</button>
+        <button><a href="/categories/create">Criar Categoria</a></button>
     </form>
 
     @if($errors->any()){

@@ -10,10 +10,12 @@
             <form action="/products/{{ $product->id }}" method="POST">
                 @csrf
                 <button type="submit">Excluir Produto</button>
+                <button><a href="{{ route('products.show', $product)}}">Visualizar Produto</a></button>
             </form>
         @endforeach
     </ul>
 
     <button><a href="/products/create">Cadastrar Produto</a></button>
+    <button><a href="/categories">Visualizar categorias</a></button>
 
 @endsection
