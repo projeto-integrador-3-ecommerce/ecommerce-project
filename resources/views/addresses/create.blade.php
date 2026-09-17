@@ -37,7 +37,7 @@
         </div>
         <div>
             <label>País:</label>
-            <select name="country" id="country">
+            <select name="country" id="country" required>
                 <option value="">Select your country</option>
                 <option value="br">Brasil</option>
                 <option value="eua">Estados Unidos</option>
