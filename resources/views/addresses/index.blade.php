@@ -7,9 +7,14 @@
         <div>
             <h2>{{ $address->street }}, {{ $address->number }}</h2>
             <p>{{ $address->city }}, {{ $address->state }}, {{ $address->country }}</p>
+            <p>{{ $address->complement }}</p>
         </div>
-        <button><a href="">Editar Endereço</a></button>
-        <button><a href="">Remover Endereço</a></button>
+        <button><a href="/addresses/{{ $address->id }}/edit">Editar Endereço</a></button>
+        <form action="{{ route('addresses.destroy', $address) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Remover Endereço</button>
+        </form>
     @endforeach
 
     <button><a href="/addresses/create">Cadastrar Endereço</a></button>
