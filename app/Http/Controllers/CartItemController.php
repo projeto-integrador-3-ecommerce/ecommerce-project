@@ -19,16 +19,6 @@ class CartItemController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        $cartItem = $cart->cartItems()
-            ->where('product_id', $data['product_id'])
-            ->first();
-
-        if ($cartItem) {
-            $cartItem->increment('quantity', $data['quantity']);
-        } else {
-            $cart->cartItems()->create($data);
-        }
-
         return redirect()->route('cart.index');
     }
 }
