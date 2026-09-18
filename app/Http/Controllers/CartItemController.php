@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,12 @@ class CartItemController extends Controller
 
         $cart = Cart::firstOrCreate([
             'user_id' => auth()->id(),
+        ]);
+
+        CartItem::create([
+            'cart_id' => $cart->id,
+            'product_id' => $data['product_id'],
+            'quantity' => $data['quantity'],
         ]);
 
         return redirect()->route('cart.index');
