@@ -9,21 +9,24 @@ class AddressController extends Controller
 {
     public function index()
     {
-        $addresses = Address::all();
+        $addresses = Address::where('user_id', auth()->id())->get();
+
         return view('addresses.index', [
-            'addresses' => $addresses
+            'addresses' => $addresses,
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('addresses.create');
     }
 
-    public function store(Request $req){
+    public function store(Request $req)
+    {
         $data = $req->validate([
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:255'],
-            'complement' => ['nullable','string', 'max:255'],
+            'complement' => ['nullable', 'string', 'max:255'],
             'neighborhood' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
@@ -38,17 +41,19 @@ class AddressController extends Controller
         return redirect()->route('addresses.index');
     }
 
-    public function edit(Address $address){
+    public function edit(Address $address)
+    {
         return view('addresses.edit', [
-            'address' => $address
+            'address' => $address,
         ]);
     }
 
-    public function update(Address $address, Request $req){
+    public function update(Address $address, Request $req)
+    {
         $data = $req->validate([
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:255'],
-            'complement' => ['nullable','string', 'max:255'],
+            'complement' => ['nullable', 'string', 'max:255'],
             'neighborhood' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
@@ -59,12 +64,14 @@ class AddressController extends Controller
         $address->update($data);
 
         return redirect()->route('addresses.index', [
-            'address' => $address
+            'address' => $address,
         ]);
     }
 
-    public function destroy(Address $address){
+    public function destroy(Address $address)
+    {
         $address->delete();
+
         return redirect()->route('addresses.index');
     }
 }

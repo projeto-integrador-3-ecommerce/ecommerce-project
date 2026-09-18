@@ -2,16 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+
+#[Fillable([
+    'cart_id',
+    'product_id',
+    'quantity',
+])]
 
 class CartItem extends Model
 {
-    public function cart(){
+    public function cart()
+    {
         // cada item do carrinho pertence a um carrinho
         return $this->belongsTo(Cart::class);
     }
 
-    public function product(){
+    public function product()
+    {
         // cada item do carrinho pertence a um produto
         return $this->belongsTo(Product::class);
     }
