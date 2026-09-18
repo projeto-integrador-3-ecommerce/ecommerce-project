@@ -20,11 +20,33 @@ class CartItemController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        CartItem::create([
-            'cart_id' => $cart->id,
-            'product_id' => $data['product_id'],
-            'quantity' => $data['quantity'],
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $data['product_id'])
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity += $data['quantity'];
+            $cartItem->save();
+        } else {
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $data['product_id'],
+                'quantity' => $data['quantity']
         ]);
+    }
+
+        return redirect()->route('cart.index');
+    }
+
+    public function destroy(CartItem $cartItem)
+    {
+        $cartItem->quantity -= 1;
+
+        if($cartItem->quantity <= 0){
+            $cartItem->delete();
+        } else {
+            $cartItem->save();
+        }   
 
         return redirect()->route('cart.index');
     }

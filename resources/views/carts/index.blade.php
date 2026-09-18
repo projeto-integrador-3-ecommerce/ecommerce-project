@@ -13,6 +13,11 @@
             <p>Preço: ${{$item->product->price}}</p>
             <p>Quantidade: ${{$item->quantity}}</p>
             <p>Subtotal: ${{$item->product->price * $item->quantity}}</p>
+            <form action="{{ route('cart-items.destroy', $item)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Remover Item</button>
+            </form>
         </div>
 
         <hr>
