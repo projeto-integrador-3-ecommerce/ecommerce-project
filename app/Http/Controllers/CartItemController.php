@@ -50,4 +50,12 @@ class CartItemController extends Controller
 
         return redirect()->route('cart.index');
     }
+
+    public function add(CartItem $cartItem)
+    {
+        $cartItem->quantity += 1;
+        $cartItem->save();
+
+        return redirect()->route('cart.index');
+    }
 }

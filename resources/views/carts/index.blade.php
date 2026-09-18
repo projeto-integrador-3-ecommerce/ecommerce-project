@@ -18,6 +18,10 @@
                 @method('DELETE')
                 <button type="submit">Remover Item</button>
             </form>
+            <form action="{{ route('cart-items.add', $item)}}" method="POST">
+                @csrf
+                <button type="submit">Adicionar Item</button>
+            </form>
         </div>
 
         <hr>
