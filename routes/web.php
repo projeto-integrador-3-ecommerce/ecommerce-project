@@ -6,6 +6,11 @@ require __DIR__.'/categories.php';
 require __DIR__.'/addresses.php';
 require __DIR__.'/cart.php';
 
+// rota teste = raíz
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
+
+
+
+

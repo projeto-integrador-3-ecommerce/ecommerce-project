@@ -3,6 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+
+// dando permissão ao laravel para preencher os campos da tabela products
+#[Fillable([
+    'category_id',
+    'name',
+    'description',
+    'price',
+    'stock',
+    'color',
+    'size',
+    'material',
+    'imagem'
+])]
 
 class Product extends Model
 {
