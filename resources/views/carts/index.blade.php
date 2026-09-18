@@ -27,5 +27,9 @@
         <hr>
     @endforeach
     @endif
+    <form action="{{ route('orders.store') }}" method="POST">
+        @csrf
+        <button type="submit">Finalizar Compra</button>
+    </form>
     <button><a href="/products"> < Continuar Comprando</a></button>
 @endsection

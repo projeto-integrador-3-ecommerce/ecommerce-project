@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function store()
     {
         $user = auth()->user();
-        $cart = $user->cart();
+        $cart = $user->cart;
 
         if(!$cart || $cart->cartItems->isEmpty()){
             return back()->with('error', 'Carrinho vazio');
@@ -21,12 +23,16 @@ class OrderController extends Controller
             $total += $item->quantity * $item->product->price;
         }
 
-        $order = OrdeR::create([
+        $order = Order::create([
             'user_id' => $user->id,
             'status' => 'pending',
             'total' => $total
         ]);
 
         return redirect()->route('orders.show', $order);
+    }
+
+    public function show(Order $order){
+        return view('orders.show', compact('order'));
     }
 }
