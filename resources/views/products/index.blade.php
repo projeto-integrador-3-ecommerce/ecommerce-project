@@ -25,5 +25,6 @@
     <button><a href="/products/create">Cadastrar Produto</a></button>
     <button><a href="/categories">Visualizar categorias</a></button>
     <button><a href="/cart">Visualizar Carrinho</a></button>
+    <button><a href="/addresses">Meus Endereços</a></button>
 
 @endsection
