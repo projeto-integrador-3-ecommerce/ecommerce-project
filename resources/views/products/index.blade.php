@@ -9,16 +9,11 @@
             <li>
                 {{ $product->name }} - ${{ $product->price }}
 
-                <form action="{{ route('products.destroy', $product) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Excluir Produto</button>
-                </form>
-
                 <a href="{{ route('products.show', $product) }}">Visualizar Produto</a>
 
-                <form action="{{ route('cart-items.store', $product->id) }}" method="POST">
+                <form action="{{ route('cart-items.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <label>Quantidade:</label>
                     <input type="number" name="quantity" value="1" min="1">
                     <button type="submit">Adicionar ao carrinho</button>
