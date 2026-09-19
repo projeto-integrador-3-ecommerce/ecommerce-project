@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    // mostra todos os endereços cadastrados
     public function index()
     {
+        // me traga todos os endereços desse usuario
         $addresses = Address::where('user_id', auth()->id())->get();
 
         return view('addresses.index', [
@@ -21,6 +23,7 @@ class AddressController extends Controller
         return view('addresses.create');
     }
 
+    // cria um endereço no banco
     public function store(Request $req)
     {
         $data = $req->validate([
@@ -34,6 +37,7 @@ class AddressController extends Controller
             'country' => ['required', 'string', 'max:255'],
         ]);
 
+        // verifica se o usuario está logado
         $data['user_id'] = auth()->id();
 
         $address = Address::create($data);
@@ -48,6 +52,7 @@ class AddressController extends Controller
         ]);
     }
 
+    // atualiza o endereço
     public function update(Address $address, Request $req)
     {
         $data = $req->validate([
@@ -68,6 +73,7 @@ class AddressController extends Controller
         ]);
     }
 
+    // exclui o endereço
     public function destroy(Address $address)
     {
         $address->delete();
