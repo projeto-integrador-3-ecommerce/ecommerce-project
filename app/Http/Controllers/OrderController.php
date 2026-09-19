@@ -35,4 +35,9 @@ class OrderController extends Controller
     public function show(Order $order){
         return view('orders.show', compact('order'));
     }
+
+    public function destroy(Order $order){
+        $order->delete();
+        return redirect()->route('products.index');
+    }
 }
