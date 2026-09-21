@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    // exibe todas as categorias
     public function index(){
         $categories = Category::all();
         return view('categories.index', [
@@ -14,16 +15,12 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function show(Category $category){
-        return view('categories.show', [
-            'category' => $category
-        ]);
-    }
-
+    // exibe a tela de criar categoria
     public function create(){
         return view('categories.create');
     }
 
+    // cria a categoria no banco
     public function store(Request $req){
         $data = $req->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -34,22 +31,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', $category);
     }
 
-    public function edit(Category $category){
-        return view('categories.edit', [
-            'category' => $category
-        ]);
-    }
-
-    public function update(Category $category, Request $req){
-        $data = $req->validate([
-            'name' => ['required', 'string', 'max:255'],
-        ]);
-
-        $category->update($data);
-
-        return redirect()->route('categories.show', $category);
-    }
-
+    // exclui a categoria
     public function destroy(Category $category){
         $category->delete();
 
