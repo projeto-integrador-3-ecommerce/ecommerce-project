@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    public function order(){
+    public function order()
+    {
         // um pagamento pertence a um pedido
         return $this->belongsTo(Order::class);
     }
