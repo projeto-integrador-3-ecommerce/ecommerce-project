@@ -2,21 +2,54 @@
 
 @section('content')
 
-    <h1>Seus Endereços</h1>
+    <h1>Escolha um endereço</h1>
+
     @foreach($addresses as $address)
+
         <div>
-            <h2>{{ $address->street }}, {{ $address->number }}</h2>
-            <p>{{ $address->city }}, {{ $address->state }}, {{ $address->country }}</p>
-            <p>{{ $address->complement }}</p>
+            <input
+                type="radio"
+                name="address_id"
+                value="{{ $address->id }}"
+                id="address-{{ $address->id }}"
+                form="address-selection"
+            >
+
+            <label for="address-{{ $address->id }}">
+                {{ $address->street }},
+                {{ $address->number }},
+                {{ $address->city }} -
+                {{ $address->state }}
+            </label>
+
+            <a href="/addresses/{{ $address->id }}/edit">
+                <button type="button">Editar Endereço</button>
+            </a>
+
+            <form action="{{ route('addresses.destroy', $address) }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit">Remover Endereço</button>
+            </form>
         </div>
-        <button><a href="/addresses/{{ $address->id }}/edit">Editar Endereço</a></button>
-        <form action="{{ route('addresses.destroy', $address) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Remover Endereço</button>
-        </form>
+
     @endforeach
 
-    <button><a href="/addresses/create">Cadastrar Endereço</a></button>
+    <form
+        id="address-selection"
+        action="{{ route('orders.address', $order) }}"
+        method="POST"
+    >
+        @csrf
+
+        <button type="submit">
+            Usar este endereço
+        </button>
+    </form>
+
+    <a href="/addresses/create">
+        <button type="button">Cadastrar Endereço</button>
+    </a>
 
 @endsection

@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
     // mostra todos os endereços cadastrados
-    public function index()
+    public function index(Order $order)
     {
         // me traga todos os endereços desse usuario
         $addresses = Address::where('user_id', auth()->id())->get();
 
-        return view('addresses.index', [
-            'addresses' => $addresses,
-        ]);
+        return view('addresses.index', compact('addresses', 'order'));
     }
 
+    // retorna view com o forms de criar endereço
     public function create()
     {
         return view('addresses.create');
@@ -45,6 +45,7 @@ class AddressController extends Controller
         return redirect()->route('addresses.index');
     }
 
+    // retorna view com o forms de editar endereço
     public function edit(Address $address)
     {
         return view('addresses.edit', [

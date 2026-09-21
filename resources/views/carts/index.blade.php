@@ -9,6 +9,15 @@
         @foreach($cart->cartItems as $item)
 
         <div>
+            <input
+                type="radio"
+                name="cart_item_id"
+                value="{{ $item->id }}"
+                id="cart-item-{{ $item->id }}"
+                form="order-selection"
+                required
+            >
+            <label for="cart-item-{{ $item->id }}">Selecionar produto</label>
             <h2>{{$item->product->name}}</h2>
             <p>Preço: ${{$item->product->price}}</p>
             <p>Quantidade: ${{$item->quantity}}</p>
@@ -26,10 +35,10 @@
 
         <hr>
     @endforeach
+        <form id="order-selection" action="{{ route('orders.store') }}" method="POST">
+            @csrf
+            <button type="submit">Finalizar Compra</button>
+        </form>
     @endif
-    <form action="{{ route('orders.store') }}" method="POST">
-        @csrf
-        <button type="submit">Finalizar Compra</button>
-    </form>
     <button><a href="/products"> < Continuar Comprando</a></button>
 @endsection

@@ -30,16 +30,19 @@ class User extends Authenticatable
         ];
     }
 
-    public function cart(){
+    public function cart()
+    {
         // 1 usuário tem 1 carrinho
         return $this->hasOne(Cart::class);
     }
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 
-    public function addresses(){
+    public function addresses()
+    {
         // um usuário tem muitos endereços
         return $this->hasMany(Address::class);
     }
