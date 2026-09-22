@@ -2,12 +2,32 @@
 
 @section('content')
 
-    <h1>Finalizar Compra: Id do pedido #{{ $order->id }}</h1>
+    <h1>Compra realizada do pedido #{{ $order->id }}</h1>
     <p>Status: {{ $order->status }}</p>
-    <p>Total: R${{ $order->total }}</p>
 
+    <p>
+        Forma de pagamento:
+        @if($order->payment)
+            @switch($order->payment->method)
+                @case('cartao')
+                    Cartão de crédito/débito
+                    @break
+                @case('boleto')
+                    Boleto
+                    @break
+                @case('pix')
+                    PIX
+                    @break
+                @default
+                    {{ $order->payment->method }}
+            @endswitch
+        @else
+            Não informado
+        @endif
+    </p>
+
+    <h2>Endereço de entrega:</h2>
     @if($order->address)
-        <h2>Endereço de entrega:</h2>
         <p>
             {{ $order->address->street }},
             {{ $order->address->number }}
@@ -20,8 +40,16 @@
             <br>
             CEP: {{ $order->address->cep }}
         </p>
+    @else
+        <p>Não informado</p>
+    @endif
 
-        <button type="button">adicionar pagamento</button>
+    <p>Total do pedido: R${{ $order->total }}</p>
+
+    @if($order->status === 'Realizado')
+        <a href="{{ route('products.index') }}">Voltar às compras</a>
+    @elseif($order->address)
+        <a href="{{ route('payment.create', $order) }}">Adicionar Pagamento</a>
     @else
         <a href="{{ route('orders.addresses', $order) }}">Adicionar endereço</a>
     @endif
