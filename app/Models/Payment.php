@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
+    protected $fillable = [
+        'order_id',
+        'status',
+        'method',
+    ];
+
     public function order()
     {
         // um pagamento pertence a um pedido

@@ -58,6 +58,8 @@ class OrderController extends Controller
     // exibe o pedido especifico
     public function show(Order $order)
     {
+        $order->load(['payment', 'address']);
+
         return view('orders.show', compact('order'));
     }
 
