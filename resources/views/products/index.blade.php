@@ -26,5 +26,7 @@
     <button><a href="/categories">Visualizar categorias</a></button>
     <button><a href="/cart">Visualizar Carrinho</a></button>
     <button><a href="/addresses">Meus Endereços</a></button>
+    <button><a href="/dashboard">Dashboard de Pedidos</a></button>
+    <button><a href="">Usuários cadastrados</a></button>
 
 @endsection
