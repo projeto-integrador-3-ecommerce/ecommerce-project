@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model; // dando permissão ao laravel para pree
     'color',
     'size',
     'material',
-    'imagem',
+    'image',
 ])]
 
 class Product extends Model
