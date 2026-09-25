@@ -5,16 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AddressController extends Controller
 {
     // mostra todos os endereços cadastrados
-    public function index(Order $order)
+    public function index(): View
     {
         // me traga todos os endereços desse usuario
         $addresses = Address::where('user_id', auth()->id())->get();
 
-        return view('addresses.index', compact('addresses', 'order'));
+        return view('addresses.index', compact('addresses'));
+    }
+
+    public function selectForOrder(Order $order): View
+    {
+        $addresses = Address::where('user_id', auth()->id())->get();
+
+        return view('orders.addresses', compact('addresses', 'order'));
     }
 
     // retorna view com o forms de criar endereço

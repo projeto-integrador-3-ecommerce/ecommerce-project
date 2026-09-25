@@ -10,7 +10,6 @@ Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.sh
 
 Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 
-Route::get('/orders/{order}/addresses', [AddressController::class, 'index'])->name('orders.addresses');
+Route::get('/orders/{order}/addresses', [AddressController::class, 'selectForOrder'])->name('orders.addresses');
 
 Route::post('/orders/{order}/addresses', [OrderController::class, 'address'])->name('orders.address');
-
