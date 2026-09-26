@@ -28,5 +28,6 @@
     <button><a href="/addresses">Meus Endereços</a></button>
     <button><a href="/orders">Dashboard de Pedidos</a></button>
     <button><a href="/users">Usuários cadastrados</a></button>
+    <button><a href="/settings/create">Configurações</a></button>
 
 @endsection
