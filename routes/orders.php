@@ -13,3 +13,5 @@ Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('ord
 Route::get('/orders/{order}/addresses', [AddressController::class, 'selectForOrder'])->name('orders.addresses');
 
 Route::post('/orders/{order}/addresses', [OrderController::class, 'address'])->name('orders.address');
+
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

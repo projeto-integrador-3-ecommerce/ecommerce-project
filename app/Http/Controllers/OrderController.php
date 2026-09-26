@@ -86,4 +86,12 @@ class OrderController extends Controller
 
         return redirect()->route('products.index');
     }
+
+    public function index(){
+        $orders = Order::with(['user', 'address'])->get();
+
+        return view('dashboard.index', [
+            'orders' => $orders
+        ]);
+    }
 }
