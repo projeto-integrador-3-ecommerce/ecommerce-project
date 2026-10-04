@@ -42,5 +42,10 @@
         <a href="{{ route('products.create') }}">Cadastrar produto</a>
         <a href="{{ route('setting.create') }}">Configurações</a>
     @endcan
-
+    @auth
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Sair</button>
+        </form>
+    @endauth
 @endsection
