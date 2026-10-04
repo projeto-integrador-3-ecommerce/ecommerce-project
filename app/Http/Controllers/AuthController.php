@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,21 +10,23 @@ use Illuminate\Support\Facades\Password;
 class AuthController extends Controller
 {
     // validação login
-    public function login(Request $req){
+    public function login(Request $req)
+    {
         // validate = verifica se as credenciais são válidas
         $credentials = $req->validate([
             // pra ser válido o email deve seguir as regras = ser obrigatório e ser um email válido
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'max:255'],
             // pra ser válido a senha deve seguir as regras = ser obrigatório
-            'password' => ['required'],
+            'password' => ['required', 'string', 'max:255'],
         ]);
 
         // o laravel recebe as credenciais, verifica se o email existe e se a senha está correta,
         // se sim, ele retorna true, se não, retorna false
         // Auth::attemp = tenta autenticar o usuário com as credenciais fornecidas, ele cuida da senha hashada
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             // regenerate = cria um novo token de sessão para o usuário autenticado, isso é importante para evitar ataques de sessão
             $req->session()->regenerate();
+
             // redirect = redireciona para a rota de produtos
             return redirect()->intended('/products');
         }
@@ -35,7 +38,8 @@ class AuthController extends Controller
     }
 
     // validação logout
-    public function logout(Request $req){
+    public function logout(Request $req)
+    {
         // diz ao laravel que o usuário não está mais autenticado, ele limpa a sessão do usuário
         Auth::logout();
 
@@ -48,11 +52,12 @@ class AuthController extends Controller
     }
 
     // função que registra a conta e envia pro banco
-    public function register(Request $req){
+    public function register(Request $req)
+    {
         $credentials = $req->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:150'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         $user = User::create([
@@ -68,39 +73,41 @@ class AuthController extends Controller
     }
 
     // função que verifica se o email de resetar a senha é válido e envia o link
-    public function reset(Request $req){
+    public function reset(Request $req)
+    {
         $req->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'max:255'],
         ]);
 
         $status = Password::sendResetLink(
             $req->only('email')
         );
 
-        if($status == Password::RESET_LINK_SENT){
+        if ($status == Password::RESET_LINK_SENT) {
             return back()->with(['status' => __($status)]);
-        };
+        }
 
-        return back()->withErrors(['email' =>'We could not find a user with that email address.',]);
+        return back()->withErrors(['email' => 'We could not find a user with that email address.']);
     }
 
     // função que reseta e atualiza a senha no banco
-    public function resetPassword(Request $req){
+    public function resetPassword(Request $req)
+    {
         $data = $req->validate([
             'token' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);
 
-        $status = Password::reset($data, function($user, $password){
+        $status = Password::reset($data, function ($user, $password) {
             $user->password = $password;
             $user->save();
         });
 
-        if($status == Password::PASSWORD_RESET){
+        if ($status == Password::PASSWORD_RESET) {
             return redirect()->route('login')->with('status', 'Password reset successfully!');
-        };
+        }
 
-        return back()->withErrors(['email' => 'The password reset link is invalid or has expired.',]);
+        return back()->withErrors(['email' => 'The password reset link is invalid or has expired.']);
     }
 }

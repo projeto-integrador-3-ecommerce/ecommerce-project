@@ -2,24 +2,28 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AddressControllerTest extends TestCase
 {
-    public function test_address_index_renders_without_an_order(): void
+    use RefreshDatabase;
+
+    public function test_guest_is_redirected_from_address_index(): void
     {
-        Schema::dropIfExists('addresses');
-        Schema::create('addresses', function (Blueprint $table): void {
-            $table->id();
-            $table->foreignId('user_id')->nullable();
-        });
+        $this->get('/addresses')
+            ->assertRedirect(route('login'));
+    }
 
-        $response = $this->get('/addresses');
+    public function test_authenticated_address_index_renders_without_saved_addresses(): void
+    {
+        $user = User::factory()->create();
 
-        $response->assertOk();
-        $response->assertSee('Meus endereços');
-        $response->assertDontSee('Usar este endereço');
+        $this->actingAs($user)
+            ->get('/addresses')
+            ->assertOk()
+            ->assertSee('Meus endereços')
+            ->assertDontSee('Usar este endereço');
     }
 }

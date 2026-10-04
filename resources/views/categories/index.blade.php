@@ -4,11 +4,17 @@
 
     <h1>Categorias</h1>
 
-    <select name="categories">
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
-    <button><a href="/categories/create">Criar Categoria</a></button>
+    @foreach($categories as $category)
+        <section>
+            <h2>{{ $category->name }}</h2>
+            @if($category->description)
+                <p>{{ $category->description }}</p>
+            @endif
+        </section>
+    @endforeach
+
+    @can('admin')
+        <a href="{{ route('categories.create') }}">Criar Categoria</a>
+    @endcan
 
 @endsection

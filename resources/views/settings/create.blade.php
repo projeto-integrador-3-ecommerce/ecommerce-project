@@ -15,7 +15,9 @@
                 <input
                     type="text"
                     name="name"
-                    value="{{ $setting->name }}"
+                    maxlength="120"
+                    required
+                    value="{{ old('name', $setting->name) }}"
                     placeholder="Ex: Dimensiona"
                 >
             </div>
@@ -25,7 +27,9 @@
                 <input
                     type="text"
                     name="cnpj"
-                    value="{{ $setting->cnpj }}"
+                    maxlength="18"
+                    required
+                    value="{{ old('cnpj', $setting->cnpj) }}"
                     placeholder="Ex: 000000000/0001-00"
                 >
             </div>
@@ -33,9 +37,11 @@
             <div>
                 <label>Email de Contato:</label>
                 <input
-                    type="text"
+                    type="email"
                     name="email"
-                    value="{{ $setting->email }}"
+                    maxlength="255"
+                    required
+                    value="{{ old('email', $setting->email) }}"
                     placeholder="Ex: dimensiona@example.com"
                 >
             </div>
@@ -43,9 +49,11 @@
             <div>
                 <label>Telefone da Loja:</label>
                 <input
-                    type="text"
+                    type="tel"
                     name="telephone"
-                    value="{{ $setting->telephone }}"
+                    maxlength="20"
+                    required
+                    value="{{ old('telephone', $setting->telephone) }}"
                     placeholder="Ex: 11955555555"
                 >
             </div>
@@ -64,6 +72,9 @@
                 <input
                     type="text"
                     name="name"
+                    maxlength="120"
+                    required
+                    value="{{ old('name') }}"
                     placeholder="Ex: Dimensiona"
                 >
             </div>
@@ -73,6 +84,9 @@
                 <input
                     type="text"
                     name="cnpj"
+                    maxlength="18"
+                    required
+                    value="{{ old('cnpj') }}"
                     placeholder="Ex: 000000000/0001-00"
                 >
             </div>
@@ -80,8 +94,11 @@
             <div>
                 <label>Email de Contato:</label>
                 <input
-                    type="text"
+                    type="email"
                     name="email"
+                    maxlength="255"
+                    required
+                    value="{{ old('email') }}"
                     placeholder="Ex: dimensiona@example.com"
                 >
             </div>
@@ -89,8 +106,11 @@
             <div>
                 <label>Telefone da Loja:</label>
                 <input
-                    type="text"
+                    type="tel"
                     name="telephone"
+                    maxlength="20"
+                    required
+                    value="{{ old('telephone') }}"
                     placeholder="Ex: 11955555555"
                 >
             </div>

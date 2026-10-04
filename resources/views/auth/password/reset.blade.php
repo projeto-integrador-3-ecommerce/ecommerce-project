@@ -10,7 +10,7 @@
 
         <div>
             <label>Email</label>
-            <input type="text" name="email" placeholder="Enter your email" required>
+            <input type="email" name="email" maxlength="255" value="{{ old('email') }}" placeholder="Enter your email" required>
         </div>
 
         <button type="submit">Send password reset link</button>
@@ -18,7 +18,7 @@
     </form>
 
     @if($errors->any())
-        <div>
+        <div role="alert">
             {{ $errors->first()}}
         </div>
     @endif

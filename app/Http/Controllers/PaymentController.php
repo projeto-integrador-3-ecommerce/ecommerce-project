@@ -4,39 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Payment;
-use Illuminate\Http\Request;
+use App\Services\MercadoPagoClient;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
+use RuntimeException;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $payments = Payment::all();
 
         return view('payments.index', compact('payments'));
     }
 
-    public function create(Order $order)
+    public function create(Order $order): View
     {
+        Gate::authorize('pay', $order);
+
         return view('payment.create', compact('order'));
     }
 
-    public function store(Request $request)
+    public function store(Order $order, MercadoPagoClient $mercadoPago): RedirectResponse
     {
-        $data = $request->validate([
-            'order_id' => ['required', 'integer', 'exists:orders,id'],
-            'method' => ['required', 'string', 'max:255'],
+        Gate::authorize('pay', $order);
+
+        $payment = $order->payment()->firstOrCreate([], [
+            'status' => 'pending',
+            'method' => 'mercado_pago',
         ]);
 
-        $order = Order::findOrFail($data['order_id']);
+        try {
+            $checkoutUrl = $mercadoPago->createCheckoutUrl($order, $payment);
+        } catch (ConnectionException|RequestException|RuntimeException $exception) {
+            report($exception);
 
-        Payment::create([
-            'order_id' => $order->id,
-            'status' => 'Realizado',
-            'method' => $data['method'],
-        ]);
+            return back()->withErrors([
+                'payment' => 'Não foi possível iniciar o pagamento. Tente novamente em instantes.',
+            ]);
+        }
 
-        $order->update(['status' => 'Realizado']);
+        return redirect()->away($checkoutUrl);
+    }
 
-        return redirect()->route('orders.show', $order);
+    public function returnFromCheckout(Order $order): RedirectResponse
+    {
+        Gate::authorize('view', $order);
+
+        return redirect()->route('orders.show', $order)->with(
+            'status',
+            'Retorno recebido. A confirmação será atualizada após a validação do Mercado Pago.'
+        );
     }
 }

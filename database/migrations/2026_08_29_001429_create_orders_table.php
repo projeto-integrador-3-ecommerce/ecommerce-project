@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('address_id')->nullable()->constrained('addresses');
-            $table->string('status');
+            $table->string('status')->default('to_pay');
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });

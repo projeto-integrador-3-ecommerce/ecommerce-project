@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 // dando permissão ao laravel para preencher os campos da tabela categories
 #[Fillable([
     'name',
+    'description',
 ])]
 //
 class Category extends Model

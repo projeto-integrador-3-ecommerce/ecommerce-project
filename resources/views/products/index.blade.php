@@ -11,23 +11,29 @@
 
                 <a href="{{ route('products.show', $product) }}">Visualizar Produto</a>
 
-                <form action="{{ route('cart-items.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <label>Quantidade:</label>
-                    <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit">Adicionar ao carrinho</button>
-                </form>
+                @auth
+                    <form action="{{ route('cart-items.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <label>Quantidade:</label>
+                        <input type="number" name="quantity" value="1" min="1">
+                        <button type="submit">Adicionar ao carrinho</button>
+                    </form>
+                @endauth
             </li>
         @endforeach
     </ul>
 
-    <button><a href="/products/create">Cadastrar Produto</a></button>
-    <button><a href="/categories">Visualizar categorias</a></button>
-    <button><a href="/cart">Visualizar Carrinho</a></button>
-    <button><a href="/addresses">Meus Endereços</a></button>
-    <button><a href="/orders">Dashboard de Pedidos</a></button>
-    <button><a href="/users">Usuários cadastrados</a></button>
-    <button><a href="/settings/create">Configurações</a></button>
+    <a href="{{ route('categories.index') }}">Visualizar categorias</a>
+    @auth
+        <a href="{{ route('cart.index') }}">Visualizar carrinho</a>
+        <a href="{{ route('addresses.index') }}">Meus endereços</a>
+        <a href="{{ route('orders.index') }}">Meus pedidos</a>
+    @endauth
+    @can('admin')
+        <a href="{{ route('products.create') }}">Cadastrar produto</a>
+        <a href="{{ route('users.index') }}">Usuários cadastrados</a>
+        <a href="{{ route('setting.create') }}">Configurações</a>
+    @endcan
 
 @endsection

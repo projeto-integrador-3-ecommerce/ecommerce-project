@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\CartItem;
 use App\Models\Order;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -40,7 +44,7 @@ class OrderController extends Controller
         $order = DB::transaction(function () use ($user, $cartItem) {
             $order = Order::create([
                 'user_id' => $user->id,
-                'status' => 'pending',
+                'status' => Order::STATUS_AWAITING_PAYMENT,
                 'total' => $cartItem->quantity * $cartItem->product->price,
             ]);
 
@@ -58,7 +62,9 @@ class OrderController extends Controller
     // exibe o pedido especifico
     public function show(Order $order)
     {
-        $order->load(['payment', 'address']);
+        Gate::authorize('view', $order);
+
+        $order->load(['payment', 'address', 'orderItems.product']);
 
         return view('orders.show', compact('order'));
     }
@@ -66,6 +72,8 @@ class OrderController extends Controller
     // adiciona um endereço ao pedido
     public function address(Request $request, Order $order)
     {
+        Gate::authorize('addAddress', $order);
+
         $data = $request->validate([
             'address_id' => ['required', 'integer', 'exists:addresses,id'],
         ]);
@@ -82,16 +90,38 @@ class OrderController extends Controller
     // exclui o pedido
     public function destroy(Order $order)
     {
-        $order->delete();
+        Gate::authorize('delete', $order);
 
-        return redirect()->route('products.index');
+        $order->update(['status' => Order::STATUS_CANCELED]);
+
+        return redirect()->route('orders.show', $order);
     }
 
-    public function index(){
-        $orders = Order::with(['user', 'address'])->get();
+    public function updateStatus(Request $request, Order $order): RedirectResponse
+    {
+        Gate::authorize('updateStatus', $order);
+
+        $data = $request->validate([
+            'status' => ['required', Rule::in(array_keys(Order::STATUS_LABELS))],
+        ]);
+
+        $order->update(['status' => $data['status']]);
+
+        return redirect()->route('orders.show', $order);
+    }
+
+    public function index(Request $request): View
+    {
+        $query = Order::with(['user', 'address'])->latest();
+
+        if (! $request->user()->is_admin) {
+            $query->where('user_id', $request->user()->id);
+        }
+
+        $orders = $query->paginate(15);
 
         return view('dashboard.index', [
-            'orders' => $orders
+            'orders' => $orders,
         ]);
     }
 }

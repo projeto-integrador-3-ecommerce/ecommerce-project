@@ -2,30 +2,378 @@
     "openapi": "3.0.0",
     "info": {
         "title": "E-commerce 3D Laravel",
-        "description": "API for an e-commerce platform for 3D printed products.",
-        "version": "1.0.0"
+        "description": "Autenticação, catálogo, pedidos e checkout do E-commerce 3D.",
+        "version": "1.1.0"
     },
     "paths": {
         "/": {
             "get": {
                 "tags": [
-                    "Teste"
+                    "System"
                 ],
-                "summary": "Teste",
-                "description": "Rota de teste da API",
+                "summary": "Health check",
                 "operationId": "fdf4b25e3cfc72618dfc3f44cda65365",
                 "responses": {
                     "200": {
-                        "description": "Ok. Funcionando."
+                        "description": "Application is available."
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate with email and password",
+                "operationId": "edea619815a08c39e5b643c4493ec0d8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "Redirect after authentication or invalid credentials."
+                    },
+                    "422": {
+                        "description": "Input validation failed."
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a customer account",
+                "operationId": "14e2dbbd1d241fa7ee0b7e995e8a9238",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 150
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "minLength": 8
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "minLength": 8
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "Redirect after registration."
+                    },
+                    "422": {
+                        "description": "Input validation failed."
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "summary": "List products",
+                "operationId": "f53063edf98d4db008c80115a3f0ed33",
+                "responses": {
+                    "200": {
+                        "description": "Product catalog rendered."
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "List orders visible to the authenticated user",
+                "operationId": "80199e6ba740280a5d3d2cbf9cb6ba99",
+                "responses": {
+                    "200": {
+                        "description": "Customer orders, or all orders for an administrator."
+                    },
+                    "302": {
+                        "description": "Authentication required."
+                    }
+                },
+                "security": [
+                    {
+                        "sessionCookie": []
+                    }
+                ]
+            }
+        },
+        "/orders/{order}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "View an order owned by the user or accessible to an administrator",
+                "operationId": "675c39d1133043f370f62c0a7b58cfad",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order details rendered."
+                    },
+                    "404": {
+                        "description": "Order does not exist or is not visible to this user."
+                    }
+                },
+                "security": [
+                    {
+                        "sessionCookie": []
+                    }
+                ]
+            }
+        },
+        "/orders/{order}/status": {
+            "patch": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update an order delivery status (administrator only)",
+                "operationId": "2dd23784cb757ad9f1a1d207a826314d",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "to_pay",
+                                            "payment_confirmed",
+                                            "shipped",
+                                            "out_for_delivery",
+                                            "delivered",
+                                            "canceled"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "Redirect to the updated order."
+                    },
+                    "403": {
+                        "description": "Administrator permission required."
+                    },
+                    "422": {
+                        "description": "Invalid order status."
+                    }
+                },
+                "security": [
+                    {
+                        "sessionCookie": []
+                    }
+                ]
+            }
+        },
+        "/payment/{order}": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Create or reuse a Mercado Pago Checkout Pro preference",
+                "operationId": "4f37af64e2ccdb8627b76dac73de2bf1",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "Redirect to Mercado Pago hosted checkout."
+                    },
+                    "404": {
+                        "description": "Order is not payable by this user."
+                    }
+                },
+                "security": [
+                    {
+                        "sessionCookie": []
+                    }
+                ]
+            }
+        },
+        "/webhooks/mercado-pago": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Receive a signed Mercado Pago payment notification",
+                "operationId": "01a20e8427b7afa6a9db4ca27714193a",
+                "parameters": [
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-signature",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "type",
+                                    "data"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "payment"
+                                    },
+                                    "data": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "987654"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Notification received and reconciled."
+                    },
+                    "401": {
+                        "description": "Invalid notification signature."
+                    },
+                    "503": {
+                        "description": "Payment provider temporarily unavailable."
                     }
                 }
             }
         }
     },
+    "components": {
+        "securitySchemes": {
+            "sessionCookie": {
+                "type": "apiKey",
+                "name": "laravel_session",
+                "in": "cookie"
+            }
+        }
+    },
     "tags": [
         {
-            "name": "Teste",
-            "description": "Teste"
+            "name": "System",
+            "description": "System"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Catalog",
+            "description": "Catalog"
+        },
+        {
+            "name": "Orders",
+            "description": "Orders"
+        },
+        {
+            "name": "Payments",
+            "description": "Payments"
         }
     ]
 }

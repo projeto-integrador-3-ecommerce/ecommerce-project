@@ -11,20 +11,19 @@
 
         <div>
             <label>Name</label>
-            <input type="text" name="name" placeholder="Enter your name">
+            <input type="text" name="name" maxlength="150" value="{{ old('name') }}" placeholder="Enter your name" required>
         </div>
         <div>
             <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email">
+            <input type="email" name="email" maxlength="255" value="{{ old('email') }}" placeholder="Enter your email" required>
         </div>
         <div>
             <label>Password</label>
-            <input type="password" name="password" placeholder="Enter your password">
-        </div>
+            <input type="password" name="password" minlength="8" maxlength="255" placeholder="Enter your password" required>
         </div>
         <div>
             <label>Confirm Password</label>
-            <input type="password" name="password_confirmation" placeholder="Confirm your password">
+            <input type="password" name="password_confirmation" minlength="8" maxlength="255" placeholder="Confirm your password" required>
         </div>
 
 
@@ -35,7 +34,7 @@
 
     <!-- exibe se tiver algum erro -->
     @if($errors->any())
-        <div>
+        <div role="alert">
             {{ $errors->first() }}
         </div>
    @endif

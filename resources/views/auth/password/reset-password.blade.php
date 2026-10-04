@@ -13,24 +13,24 @@
 
         <div>
             <label>Email</label>
-            <input type="text" name="email" placeholder="Enter your email" value="{{ $email ?? old('email') }}" required>
+            <input type="email" name="email" maxlength="255" placeholder="Enter your email" value="{{ $email ?? old('email') }}" required>
         </div>
         
         <div>
             <label>New Password</label>
-            <input type="password" name="password" placeholder="Enter your new password" required>
+            <input type="password" name="password" minlength="8" maxlength="255" placeholder="Enter your new password" required>
         </div>
 
         <div>
             <label>Confirm New Password</label>
-            <input type="password" name="password_confirmation" placeholder="Confirm your new password" required>
+            <input type="password" name="password_confirmation" minlength="8" maxlength="255" placeholder="Confirm your new password" required>
         </div>
 
         <button type="submit">Reset Password</button>
     </form>
 
     @if($errors->any())
-        <div>
+        <div role="alert">
             {{ $errors->first() }}
         </div>        
     @endif

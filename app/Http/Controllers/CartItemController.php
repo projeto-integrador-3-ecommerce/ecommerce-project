@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CartItemController extends Controller
 {
@@ -36,9 +37,9 @@ class CartItemController extends Controller
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $data['product_id'],
-                'quantity' => $data['quantity']
-        ]);
-    }
+                'quantity' => $data['quantity'],
+            ]);
+        }
 
         return redirect()->route('cart.index');
     }
@@ -46,14 +47,16 @@ class CartItemController extends Controller
     // exclui um item do produto do carrinho
     public function destroy(CartItem $cartItem)
     {
+        Gate::authorize('delete', $cartItem);
+
         $cartItem->quantity -= 1;
 
         // se a quantidasde for 0, exclui o produto
-        if($cartItem->quantity <= 0){
+        if ($cartItem->quantity <= 0) {
             $cartItem->delete();
         } else {
             $cartItem->save();
-        }   
+        }
 
         return redirect()->route('cart.index');
     }
@@ -61,6 +64,8 @@ class CartItemController extends Controller
     // adiciona um item do produto no carrinho
     public function add(CartItem $cartItem)
     {
+        Gate::authorize('update', $cartItem);
+
         $cartItem->quantity += 1;
         $cartItem->save();
 

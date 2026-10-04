@@ -10,6 +10,10 @@ class Payment extends Model
         'order_id',
         'status',
         'method',
+        'preference_id',
+        'checkout_url',
+        'external_payment_id',
+        'status_detail',
     ];
 
     public function order()

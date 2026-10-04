@@ -4,16 +4,22 @@
 
     <h1>Login</h1>
 
+    @if($errors->any())
+        <div role="alert" aria-live="polite">
+            <p>{{ $errors->first() }}</p>
+        </div>
+    @endif
+
     <!-- form que envia pra rota de post login -->
     <form class="login-form" method="POST" action="{{ route('login.store') }}">
 
         @csrf
 
         <label class="login-title" for="email">Email</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" maxlength="255" value="{{ old('email') }}" required>
 
         <label class="login-title" for="password">Password</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" maxlength="255" required>
 
         <!-- botao de fazer login -->
         <button class="btn-login" type="submit">Login</button>

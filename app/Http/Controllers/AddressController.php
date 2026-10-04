@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class AddressController extends Controller
@@ -20,6 +21,8 @@ class AddressController extends Controller
 
     public function selectForOrder(Order $order): View
     {
+        Gate::authorize('addAddress', $order);
+
         $addresses = Address::where('user_id', auth()->id())->get();
 
         return view('orders.addresses', compact('addresses', 'order'));
@@ -56,6 +59,8 @@ class AddressController extends Controller
     // retorna view com o forms de editar endereço
     public function edit(Address $address)
     {
+        Gate::authorize('view', $address);
+
         return view('addresses.edit', [
             'address' => $address,
         ]);
@@ -64,6 +69,8 @@ class AddressController extends Controller
     // atualiza o endereço
     public function update(Address $address, Request $req)
     {
+        Gate::authorize('update', $address);
+
         $data = $req->validate([
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:255'],
@@ -85,6 +92,8 @@ class AddressController extends Controller
     // exclui o endereço
     public function destroy(Address $address)
     {
+        Gate::authorize('delete', $address);
+
         $address->delete();
 
         return redirect()->route('addresses.index');

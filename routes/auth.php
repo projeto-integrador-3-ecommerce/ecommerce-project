@@ -1,25 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
 
 // rota de login que exibe formulário de login
-Route::get('/auth/login', function (){
+Route::get('/auth/login', function () {
     return view('auth.login');
 })->name('login');
 
 // rota de login que faz o post e valida no banco
 Route::post('/auth/login', [AuthController::class, 'login'])
+    ->middleware('throttle:5,1')
 // ->name = significa que estamos dando o nome pra rota de 'login'
-->name('login.store');
+    ->name('login.store');
 
 // rota que faz logout
 Route::post('/auth/logout', [AuthController::class, 'logout'])
 // middleware = só algúem que já está autenticado pode usar essa rota
 // middleware pergunta = está logado? se sim deixa seguir pra essa rota
-->middleware('auth')
+    ->middleware('auth')
 // ->name = significa que estamos dando o nome pra rota de 'logout'
-->name('logout');
+    ->name('logout');
 
 // rota que exibe a view com o forms de registro de conta
 Route::get('/auth/register', function () {
@@ -28,7 +29,7 @@ Route::get('/auth/register', function () {
 
 // rota que registra a conta no banco
 Route::post('/auth/register', [AuthController::class, 'register'])
-->name('register.store');
+    ->name('register.store');
 
 // retorna a view "Esqueci minha senha"
 Route::get('/auth/password/reset', function () {
@@ -37,6 +38,7 @@ Route::get('/auth/password/reset', function () {
 
 // recebe o email e envia o link para o email cadastrado
 Route::post('/auth/password/reset', [AuthController::class, 'reset'])
+    ->middleware('throttle:3,1')
     ->name('password.email');
 
 // exibe a view de nova senha
@@ -48,4 +50,6 @@ Route::get('/auth/password/reset/{token}', function (string $token) {
 })->name('password.reset');
 
 // recebe a nova senha e faz o update
-Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])
+    ->middleware('throttle:3,1')
+    ->name('password.update');

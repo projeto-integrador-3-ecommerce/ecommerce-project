@@ -2,18 +2,21 @@
 
 @section('content')
 
-    <h1>Dashboard Dimensiona</h1>
+    <h1>{{ auth()->user()->is_admin ? 'Todos os pedidos' : 'Meus pedidos' }}</h1>
     <section id="orders">
         @foreach($orders as $order)
             <div>
-                <h2>ID do pedido: #{{ $order->id}}</h2>
-                <p>Status do pedido: {{ $order->status }}</p>
-                <p>Usuário do pedido: {{ $order->user->name }}</p>
+                <h2>Pedido #{{ $order->id }}</h2>
+                <p>Status: {{ $order->statusLabel() }}</p>
+                @if(auth()->user()->is_admin)
+                    <p>Cliente: {{ $order->user->name }}</p>
+                @endif
                 <p>Endereço do pedido: {{ $order->address->street ?? 'Endereço não encontrado' }}</p>
-                <p>Criado em: {{ $order->created_at }}</p>
-                <p>Atualizado em: {{ $order->created_at }}</p>
+                <p>Criado em: {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                <a href="{{ route('orders.show', $order) }}">Ver pedido</a>
             </div>
         @endforeach
     </section>
+    {{ $orders->links() }}
 
 @endsection

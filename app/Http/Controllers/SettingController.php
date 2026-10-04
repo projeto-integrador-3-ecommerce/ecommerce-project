@@ -2,48 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SettingController extends Controller
 {
-    public function store(Request $req){
-        $info = $req->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'cnpj' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255'],
-            'telephone' => ['required', 'string', 'max:255'],
+    public function store(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'cnpj' => ['required', 'string', 'max:18'],
+            'email' => ['required', 'email', 'max:255'],
+            'telephone' => ['required', 'string', 'max:20'],
         ]);
 
-        Setting::create($info);
+        $setting = Setting::query()->orderBy('id')->first();
+
+        if ($setting === null) {
+            Setting::create($data);
+        } else {
+            $setting->update($data);
+        }
 
         return redirect()->route('setting.create');
     }
 
-    public function edit(Setting $setting){
+    public function edit(Setting $setting): View
+    {
         return view('settings.edit', [
-            'setting' => $setting
+            'setting' => $setting,
         ]);
     }
 
-    public function update(Request $req, Setting $setting){
-        $info = $req->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'cnpj' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255'],
-            'telephone' => ['required', 'string', 'max:255'],
+    public function update(Request $request, Setting $setting): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'cnpj' => ['required', 'string', 'max:18'],
+            'email' => ['required', 'email', 'max:255'],
+            'telephone' => ['required', 'string', 'max:20'],
         ]);
 
-        $lojaUpdate->update($info);
+        $setting->update($data);
 
-        return redirect()->route('settings.create');
+        return redirect()->route('setting.create');
     }
 
-    public function create(Setting $setting){
-        $setting = Setting::first();
-        
+    public function create(): View
+    {
+        $setting = Setting::query()->orderBy('id')->first();
+
         return view('settings.create', [
-            'setting' => $setting
+            'setting' => $setting,
         ]);
     }
 }
