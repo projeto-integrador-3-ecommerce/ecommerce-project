@@ -9,13 +9,15 @@
     <p>Price: ${{$product->price}}</p>
     <p>Description: {{$product->description}}</p>
     @auth
-        <form action="{{ route('cart-items.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <label>Qtde:</label>
-            <input type="number" name="quantity" value="1" min="1">
-            <button type="submit">Adicionar ao carrinho</button>
-        </form>
+        @unless(auth()->user()->is_admin)
+            <form action="{{ route('cart-items.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <label>Qtde:</label>
+                <input type="number" name="quantity" value="1" min="1">
+                <button type="submit">Adicionar ao carrinho</button>
+            </form>
+        @endunless
     @endauth
 
     @can('admin')

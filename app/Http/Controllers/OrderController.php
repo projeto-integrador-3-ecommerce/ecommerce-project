@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -18,40 +18,50 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'cart_item_id' => ['required', 'integer', 'exists:cart_items,id'],
+            'cart_item_ids' => ['required', 'array', 'min:1'],
+            'cart_item_ids.*' => ['required', 'integer', 'distinct', 'exists:cart_items,id'],
         ]);
 
-        // verifica se o usuário está autenticado
-        $user = auth()->user();
-        // verifica se o carrinho do usuário existe
+        $user = $request->user();
         $cart = $user->cart;
 
-        // se não houver carrinho ou carrinho vazio, retorna um erro
-        if (! $cart || $cart->cartItems->isEmpty()) {
-            return back()->with('error', 'Carrinho vazio');
+        if (! $cart) {
+            return back()->withErrors(['cart_item_ids' => 'Seu carrinho está vazio.']);
         }
 
-        $cartItem = $cart->cartItems()
-            ->with('product')
-            ->find($data['cart_item_id']);
+        $order = DB::transaction(function () use ($user, $cart, $data): Order {
+            $cartItems = $cart->cartItems()
+                ->with('product')
+                ->whereIn('id', $data['cart_item_ids'])
+                ->lockForUpdate()
+                ->get();
 
-        if (! $cartItem instanceof CartItem) {
-            return back()
-                ->withErrors(['cart_item_id' => 'Selecione um produto do seu carrinho.'])
-                ->withInput();
-        }
+            if ($cartItems->count() !== count($data['cart_item_ids'])) {
+                throw ValidationException::withMessages([
+                    'cart_item_ids' => 'Selecione apenas itens do seu carrinho.',
+                ]);
+            }
 
-        $order = DB::transaction(function () use ($user, $cartItem) {
+            $totalCents = 0;
+
+            foreach ($cartItems as $cartItem) {
+                $totalCents += (int) round((float) $cartItem->product->price * 100) * $cartItem->quantity;
+            }
+
             $order = Order::create([
                 'user_id' => $user->id,
                 'status' => Order::STATUS_AWAITING_PAYMENT,
-                'total' => $cartItem->quantity * $cartItem->product->price,
+                'total' => number_format($totalCents / 100, 2, '.', ''),
             ]);
 
-            $order->orderItems()->create([
-                'product_id' => $cartItem->product_id,
-                'quantity' => $cartItem->quantity,
-            ]);
+            foreach ($cartItems as $cartItem) {
+                $order->orderItems()->create([
+                    'product_id' => $cartItem->product_id,
+                    'quantity' => $cartItem->quantity,
+                ]);
+            }
+
+            $cart->cartItems()->whereIn('id', $cartItems->modelKeys())->delete();
 
             return $order;
         });

@@ -13,6 +13,7 @@ class CartController extends Controller
         $cart = Cart::firstOrCreate([
             'user_id' => auth()->id(),
         ]);
+        $cart->load('cartItems.product');
 
         return view('carts.index', [
             'cart' => $cart,

@@ -11,12 +11,19 @@ use Illuminate\View\View;
 class AddressController extends Controller
 {
     // mostra todos os endereços cadastrados
-    public function index(): View
+    public function index(Request $request): View
     {
-        // me traga todos os endereços desse usuario
-        $addresses = Address::where('user_id', auth()->id())->get();
+        $query = Address::query()->with('user')->latest();
 
-        return view('addresses.index', compact('addresses'));
+        if (! $request->user()->is_admin) {
+            $query->where('user_id', $request->user()->id);
+        }
+
+        $addresses = $query->paginate(20);
+
+        return view('addresses.index', [
+            'addresses' => $addresses,
+        ]);
     }
 
     public function selectForOrder(Order $order): View
