@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nome": "PLA Branco 1kg",
+    "tipo": "FDM",
+    "kg": 0.6,
+    "capacidade": 10,
+    "minimo": 2.0,
+    "preco_kg": 89
+  },
+  {
+    "id": 2,
+    "nome": "PLA Preto 1kg",
+    "tipo": "FDM",
+    "kg": 4.2,
+    "capacidade": 10,
+    "minimo": 2.0,
+    "preco_kg": 89
+  },
+  {
+    "id": 3,
+    "nome": "ABS Preto 1kg",
+    "tipo": "FDM",
+    "kg": 1.1,
+    "capacidade": 8,
+    "minimo": 1.6,
+    "preco_kg": 95
+  },
+  {
+    "id": 4,
+    "nome": "PETG Transparente",
+    "tipo": "FDM",
+    "kg": 5.5,
+    "capacidade": 8,
+    "minimo": 1.6,
+    "preco_kg": 110
+  },
+  {
+    "id": 5,
+    "nome": "TPU Flexível",
+    "tipo": "FDM",
+    "kg": 3.0,
+    "capacidade": 5,
+    "minimo": 1.0,
+    "preco_kg": 150
+  },
+  {
+    "id": 6,
+    "nome": "Resina Cinza 500ml",
+    "tipo": "SLA",
+    "kg": 0.8,
+    "capacidade": 6,
+    "minimo": 1.2,
+    "preco_kg": 180
+  },
+  {
+    "id": 7,
+    "nome": "Resina Transparente",
+    "tipo": "SLA",
+    "kg": 3.5,
+    "capacidade": 6,
+    "minimo": 1.2,
+    "preco_kg": 190
+  },
+  {
+    "id": 8,
+    "nome": "Resina Preta 1L",
+    "tipo": "SLA",
+    "kg": 4.0,
+    "capacidade": 6,
+    "minimo": 1.2,
+    "preco_kg": 170
+  }
+]

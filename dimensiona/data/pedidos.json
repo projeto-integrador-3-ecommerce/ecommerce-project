@@ -1,0 +1,158 @@
+[
+  {
+    "codigo": "DIM-2026-4837",
+    "cliente": "Carlos Mendes",
+    "email": "carlos@email.com",
+    "data": "2026-09-29",
+    "itens": [
+      {
+        "produto_id": 2,
+        "qtd": 1
+      },
+      {
+        "produto_id": 1,
+        "qtd": 1
+      }
+    ],
+    "total": 238.0,
+    "status": "confirmado"
+  },
+  {
+    "codigo": "DIM-2026-4833",
+    "cliente": "Ana Paula S.",
+    "email": "ana@email.com",
+    "data": "2026-09-29",
+    "itens": [
+      {
+        "produto_id": 2,
+        "qtd": 1
+      }
+    ],
+    "total": 149.0,
+    "status": "imprimindo"
+  },
+  {
+    "codigo": "DIM-2026-4829",
+    "cliente": "João Costa",
+    "email": "joao@email.com",
+    "data": "2026-09-28",
+    "itens": [
+      {
+        "produto_id": 3,
+        "qtd": 1
+      }
+    ],
+    "total": 59.0,
+    "status": "enviado"
+  },
+  {
+    "codigo": "DIM-2026-4826",
+    "cliente": "Mariana Alves",
+    "email": "mariana@email.com",
+    "data": "2026-09-28",
+    "itens": [
+      {
+        "produto_id": 4,
+        "qtd": 1
+      },
+      {
+        "produto_id": 1,
+        "qtd": 1
+      }
+    ],
+    "total": 208.0,
+    "status": "imprimindo"
+  },
+  {
+    "codigo": "DIM-2026-4824",
+    "cliente": "Rafael Torres",
+    "email": "rafael@email.com",
+    "data": "2026-09-27",
+    "itens": [
+      {
+        "produto_id": 1,
+        "qtd": 1
+      }
+    ],
+    "total": 89.0,
+    "status": "entregue"
+  },
+  {
+    "codigo": "DIM-2026-4821",
+    "cliente": "Fernanda Lima",
+    "email": "fernanda@email.com",
+    "data": "2026-09-27",
+    "itens": [
+      {
+        "produto_id": 2,
+        "qtd": 2
+      }
+    ],
+    "total": 298.0,
+    "status": "enviado"
+  },
+  {
+    "codigo": "DIM-2026-4818",
+    "cliente": "Lucas Pereira",
+    "email": "lucas@email.com",
+    "data": "2026-09-26",
+    "itens": [
+      {
+        "produto_id": 3,
+        "qtd": 2
+      },
+      {
+        "produto_id": 4,
+        "qtd": 1
+      }
+    ],
+    "total": 237.0,
+    "status": "cancelado"
+  },
+  {
+    "codigo": "DIM-2026-4812",
+    "cliente": "Beatriz Rocha",
+    "email": "beatriz@email.com",
+    "data": "2026-09-25",
+    "itens": [
+      {
+        "produto_id": 1,
+        "qtd": 2
+      }
+    ],
+    "total": 178.0,
+    "status": "entregue"
+  },
+  {
+    "codigo": "DIM-2026-4805",
+    "cliente": "Pedro Nunes",
+    "email": "pedro@email.com",
+    "data": "2026-09-24",
+    "itens": [
+      {
+        "produto_id": 4,
+        "qtd": 1
+      }
+    ],
+    "total": 119.0,
+    "status": "entregue"
+  },
+  {
+    "codigo": "DIM-2026-3517",
+    "cliente": "Juliana Martins",
+    "email": "juliana@email.com",
+    "data": "2026-09-20",
+    "itens": [
+      {
+        "produto_id": 2,
+        "qtd": 1
+      },
+      {
+        "produto_id": 3,
+        "qtd": 1
+      }
+    ],
+    "total": 208.0,
+    "status": "entregue"
+  }
+]

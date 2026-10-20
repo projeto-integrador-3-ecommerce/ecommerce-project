@@ -1,0 +1,62 @@
+[
+  {
+    "id": "FDM-01",
+    "tipo": "FDM",
+    "modelo": "Prusa MK4",
+    "status": "imprimindo",
+    "job": "Lorem ipsum dolor",
+    "progresso": 72,
+    "restante": "1h 20min",
+    "bico": 210,
+    "mesa": 60,
+    "material": "PLA Branco"
+  },
+  {
+    "id": "FDM-02",
+    "tipo": "FDM",
+    "modelo": "Prusa MK4",
+    "status": "imprimindo",
+    "job": "Sit amet consectetur",
+    "progresso": 38,
+    "restante": "3h 05min",
+    "bico": 240,
+    "mesa": 80,
+    "material": "PETG Preto"
+  },
+  {
+    "id": "FDM-03",
+    "tipo": "FDM",
+    "modelo": "Bambu X1",
+    "status": "ociosa",
+    "job": null,
+    "progresso": 0,
+    "restante": null,
+    "bico": 25,
+    "mesa": 24,
+    "material": "ABS Cinza"
+  },
+  {
+    "id": "SLA-01",
+    "tipo": "SLA",
+    "modelo": "Formlabs Form 3",
+    "status": "imprimindo",
+    "job": "Adipisicing elit",
+    "progresso": 91,
+    "restante": "25min",
+    "bico": null,
+    "mesa": 30,
+    "material": "Resina Cinza"
+  },
+  {
+    "id": "SLA-02",
+    "tipo": "SLA",
+    "modelo": "Elegoo Saturn",
+    "status": "manutencao",
+    "job": null,
+    "progresso": 0,
+    "restante": null,
+    "bico": null,
+    "mesa": null,
+    "material": "—"
+  }
+]
