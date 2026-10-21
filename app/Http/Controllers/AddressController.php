@@ -37,9 +37,16 @@ class AddressController extends Controller
     }
 
     // retorna view com o forms de criar endereço
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('addresses.create');
+        $order = null;
+
+        if ($request->filled('order_id')) {
+            $order = Order::findOrFail($request->integer('order_id'));
+            Gate::authorize('addAddress', $order);
+        }
+
+        return view('addresses.create', compact('order'));
     }
 
     // cria um endereço no banco
@@ -54,12 +61,24 @@ class AddressController extends Controller
             'state' => ['required', 'string', 'max:255'],
             'cep' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
+            'order_id' => ['nullable', 'integer', 'exists:orders,id'],
         ]);
+
+        $order = null;
+        if (! empty($data['order_id'])) {
+            $order = Order::findOrFail($data['order_id']);
+            Gate::authorize('addAddress', $order);
+        }
 
         // verifica se o usuario está logado
         $data['user_id'] = $request->user()->id;
+        unset($data['order_id']);
 
         Address::create($data);
+
+        if ($order) {
+            return redirect()->route('orders.addresses', $order)->with('success', 'Endereço cadastrado. Selecione-o para continuar o pedido.');
+        }
 
         return redirect()->route('addresses.index');
     }

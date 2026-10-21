@@ -5,6 +5,7 @@
 <section class="container auth pb-20">
     @if ($errors->any())<p class="form-error" role="alert">{{ $errors->first() }}</p>@endif
     <form action="{{ route('addresses.store') }}" method="POST">@csrf
+        @if ($order)<input type="hidden" name="order_id" value="{{ $order->id }}">@endif
         <label class="field"><span>CEP</span><input class="input" type="text" name="cep" id="cep" value="{{ old('cep') }}" placeholder="00000-000" autocomplete="postal-code" required></label>
         <label class="field"><span>Rua / logradouro</span><input class="input" type="text" name="street" id="street" value="{{ old('street') }}" autocomplete="address-line1" required></label>
         <label class="field"><span>Número</span><input class="input" type="text" name="number" id="number" value="{{ old('number') }}" required></label>
@@ -17,7 +18,7 @@
         </select></label>
         <label class="field"><span>País</span><select class="input" name="country" id="country" required><option value="br" @selected(old('country', 'br') === 'br')>Brasil</option></select></label>
         <button class="btn btn--primary btn--block" type="submit">Salvar endereço</button>
-        <a class="btn btn--ghost btn--block mt-3" href="{{ route('addresses.index') }}">Voltar aos endereços</a>
+        <a class="btn btn--ghost btn--block mt-3" href="{{ $order ? route('orders.addresses', $order) : route('addresses.index') }}">{{ $order ? 'Voltar à seleção do pedido' : 'Voltar aos endereços' }}</a>
     </form>
 </section>
 @endsection
