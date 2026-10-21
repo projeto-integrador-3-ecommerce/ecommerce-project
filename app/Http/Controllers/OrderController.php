@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class OrderController extends Controller
 {
     // cria um pedido no banco
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'cart_item_ids' => ['required', 'array', 'min:1'],
@@ -70,7 +70,7 @@ class OrderController extends Controller
     }
 
     // exibe o pedido especifico
-    public function show(Order $order)
+    public function show(Order $order): View
     {
         Gate::authorize('view', $order);
 
@@ -80,7 +80,7 @@ class OrderController extends Controller
     }
 
     // adiciona um endereço ao pedido
-    public function address(Request $request, Order $order)
+    public function address(Request $request, Order $order): RedirectResponse
     {
         Gate::authorize('addAddress', $order);
 
@@ -88,7 +88,7 @@ class OrderController extends Controller
             'address_id' => ['required', 'integer', 'exists:addresses,id'],
         ]);
 
-        $address = Address::where('user_id', auth()->id())->findOrFail($data['address_id']);
+        $address = Address::where('user_id', $request->user()->id)->findOrFail($data['address_id']);
 
         $order->update([
             'address_id' => $address->id,
@@ -98,7 +98,7 @@ class OrderController extends Controller
     }
 
     // exclui o pedido
-    public function destroy(Order $order)
+    public function destroy(Order $order): RedirectResponse
     {
         Gate::authorize('delete', $order);
 
@@ -130,7 +130,7 @@ class OrderController extends Controller
 
         $orders = $query->paginate(15);
 
-        return view('dashboard.index', [
+        return view('orders.index', [
             'orders' => $orders,
         ]);
     }

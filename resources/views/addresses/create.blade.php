@@ -1,105 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.storefront', ['title' => 'Cadastrar endereço'])
 
 @section('content')
-
-    <h1>Cadastrar endereço</h1>
-
-    <form action="{{ route('addresses.store') }}" method="POST">
-        @csrf
-
-        <div>
-            <label>CEP:</label>
-            <input type="text" name="cep" id="cep" placeholder="ex: 00000-000" required>
-        </div>
-        <div>
-            <label>Logradouro::</label>
-            <input type="text" name="street" id="street" placeholder="ex: Maple Street, Springfield, IL 62704">
-        </div>
-        <div>
-            <label>Bairro:</label>
-            <input type="text" name="neighborhood" id="neighborhood" placeholder="ex: Springfield">
-        </div>
-        <div>
-            <label>Cidade:</label>
-            <input type="text" name="city" id="city" placeholder="ex: São Paulo">
-        </div>
-        <div>
-            <label>UF:</label>
-            <select name="state" id="state">
-                <option value="">Select your state</option>
-                <option value="SP">SP</option>
-                <option value="RJ">RJ</option>
-                <option value="MG">MG</option>
-                <option value="PA">PARÁ</option>
-                <option value="BA">BAHIA</option>
-                <option value="RS">RIO GRANDE DO SUL</option>
-            </select>
-        </div>
-        <div>
-            <label>País:</label>
-            <select name="country" id="country" required>
-                <option value="">Select your country</option>
-                <option value="br">Brasil</option>
-                <option value="eua">Estados Unidos</option>
-                <option value="uk">Reino Unido</option>
-                <option value="kr">Coréia do Sul</option>
-                <option value="cn">China</option>
-                <option value="jp">Japão</option>
-            </select>
-        </div>
-        <div>
-            <label>Número:</label>
-            <input type="text" name="number" id="number" placeholder="ex: 216" required>
-        </div>
-        <div>
-            <label>Complemento:</label>
-            <input type="text" name="complement" id="complement" placeholder="ex: Near the bakery">
-        </div>
-
-        <button type="submit">Cadastrar</button>
+<section class="page-head"><div class="container"><span class="eyebrow">Sua conta</span><h1>Cadastrar endereço</h1><p>Informe onde deseja receber seus pedidos.</p></div></section>
+<section class="container auth pb-20">
+    @if ($errors->any())<p class="form-error" role="alert">{{ $errors->first() }}</p>@endif
+    <form action="{{ route('addresses.store') }}" method="POST">@csrf
+        <label class="field"><span>CEP</span><input class="input" type="text" name="cep" id="cep" value="{{ old('cep') }}" placeholder="00000-000" autocomplete="postal-code" required></label>
+        <label class="field"><span>Rua / logradouro</span><input class="input" type="text" name="street" id="street" value="{{ old('street') }}" autocomplete="address-line1" required></label>
+        <label class="field"><span>Número</span><input class="input" type="text" name="number" id="number" value="{{ old('number') }}" required></label>
+        <label class="field"><span>Complemento</span><input class="input" type="text" name="complement" id="complement" value="{{ old('complement') }}" autocomplete="address-line2"></label>
+        <label class="field"><span>Bairro</span><input class="input" type="text" name="neighborhood" id="neighborhood" value="{{ old('neighborhood') }}" required></label>
+        <label class="field"><span>Cidade</span><input class="input" type="text" name="city" id="city" value="{{ old('city') }}" autocomplete="address-level2" required></label>
+        <label class="field"><span>Estado</span><select class="input" name="state" id="state" autocomplete="address-level1" required>
+            <option value="">Selecione</option>
+            @foreach (['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'] as $state)<option value="{{ $state }}" @selected(old('state') === $state)>{{ $state }}</option>@endforeach
+        </select></label>
+        <label class="field"><span>País</span><select class="input" name="country" id="country" required><option value="br" @selected(old('country', 'br') === 'br')>Brasil</option></select></label>
+        <button class="btn btn--primary btn--block" type="submit">Salvar endereço</button>
+        <a class="btn btn--ghost btn--block mt-3" href="{{ route('addresses.index') }}">Voltar aos endereços</a>
     </form>
-
-    <script>
-        const cep = document.getElementById('cep');
-        cep.addEventListener('blur', () => {
-            const logradouro = document.getElementById('street');
-            const bairro = document.getElementById('neighborhood');
-            const cidade = document.getElementById('city');
-            const estado = document.getElementById('state');
-            const pais = document.getElementById('country');
-
-            let cepNumerico = cep.value.replace(/\D/g, '');
-
-            if(cepNumerico.length !== 8){
-                alert("CEP inválido");
-                return;
-            }
-
-            fetch(`https://viacep.com.br/ws/${cepNumerico}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if(data.erro){
-                        alert("CEP não encontrado");
-                        return;
-                    }
-
-                    logradouro.value = data.logradouro;
-                    bairro.value = data.bairro;
-                    cidade.value = data.localidade;
-                    estado.value = data.uf;
-                    
-                })
-                .catch(error => {
-                    console.error("Erro ao consultar cep!", error);
-                });
-        });
-        
-    </script>
-
-    @if($errors->any())
-        <div>
-            {{ $errors->first()}}
-        </div>
-    @endif
-
+</section>
 @endsection

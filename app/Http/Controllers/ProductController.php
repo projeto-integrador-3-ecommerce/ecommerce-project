@@ -12,10 +12,16 @@ class ProductController extends Controller
     // função que exibe a lista de produtos
     public function index()
     {
-        $products = Product::all();
+        $selectedCategory = (string) request()->query('category', 'all');
+        $products = Product::with('category')
+            ->when($selectedCategory !== 'all', fn ($query) => $query->where('category_id', $selectedCategory))
+            ->latest()
+            ->get();
 
         return view('products.index', [
             'products' => $products,
+            'categories' => Category::withCount('products')->get(),
+            'selectedCategory' => $selectedCategory,
         ]);
     }
 

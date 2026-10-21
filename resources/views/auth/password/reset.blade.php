@@ -1,34 +1,14 @@
-@extends('layouts.app')
-<!-- herdando html do layouts -->
+@extends('layouts.storefront', ['title' => 'Recuperar senha'])
 @section('content')
 
-    <h1>Forgot Password?</h1>
-
-    <!-- forma que envia pra rota de post que envia o email pro laravel e laravel envia pra outra rota -->
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <div>
-            <label>Email</label>
-            <input type="email" name="email" maxlength="255" value="{{ old('email') }}" placeholder="Enter your email" required>
-        </div>
-
-        <button type="submit">Send password reset link</button>
-
-    </form>
-
-    @if($errors->any())
-        <div role="alert">
-            {{ $errors->first()}}
-        </div>
-    @endif
-
-    <!-- exibe status se o email foi encontrado ou nao -->
-    @if(session('status'))
-        <div>
-            {{ session('status') }}
-        </div>
-    @endif
+    <section class="container auth"><div class="auth__head"><img src="{{ asset('images/dimensiona/logo.svg') }}" alt="" width="36" height="36"><h1>Recuperar senha</h1><p>Enviaremos instruções para o e-mail da sua conta.</p></div>
+        @if ($errors->any())<p class="form-error" role="alert">{{ $errors->first() }}</p>@endif
+        @if (session('status'))<p class="status-pill" role="status">{{ session('status') }}</p>@endif
+        <form method="POST" action="{{ route('password.email') }}">@csrf
+            <label class="field"><span>E-mail</span><input class="input" type="email" name="email" maxlength="255" value="{{ old('email') }}" autocomplete="email" required></label>
+            <button class="btn btn--primary btn--block" type="submit">Enviar instruções</button>
+        </form>
+    </section>
 
 
 @endsection

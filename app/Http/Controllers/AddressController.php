@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Order;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -36,15 +37,15 @@ class AddressController extends Controller
     }
 
     // retorna view com o forms de criar endereço
-    public function create()
+    public function create(): View
     {
         return view('addresses.create');
     }
 
     // cria um endereço no banco
-    public function store(Request $req)
+    public function store(Request $request): RedirectResponse
     {
-        $data = $req->validate([
+        $data = $request->validate([
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:255'],
             'complement' => ['nullable', 'string', 'max:255'],
@@ -56,15 +57,15 @@ class AddressController extends Controller
         ]);
 
         // verifica se o usuario está logado
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = $request->user()->id;
 
-        $address = Address::create($data);
+        Address::create($data);
 
         return redirect()->route('addresses.index');
     }
 
     // retorna view com o forms de editar endereço
-    public function edit(Address $address)
+    public function edit(Address $address): View
     {
         Gate::authorize('view', $address);
 
@@ -74,11 +75,11 @@ class AddressController extends Controller
     }
 
     // atualiza o endereço
-    public function update(Address $address, Request $req)
+    public function update(Address $address, Request $request): RedirectResponse
     {
         Gate::authorize('update', $address);
 
-        $data = $req->validate([
+        $data = $request->validate([
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:255'],
             'complement' => ['nullable', 'string', 'max:255'],
@@ -91,13 +92,11 @@ class AddressController extends Controller
 
         $address->update($data);
 
-        return redirect()->route('addresses.index', [
-            'address' => $address,
-        ]);
+        return redirect()->route('addresses.index');
     }
 
     // exclui o endereço
-    public function destroy(Address $address)
+    public function destroy(Address $address): RedirectResponse
     {
         Gate::authorize('delete', $address);
 

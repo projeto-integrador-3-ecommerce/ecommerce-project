@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // rota de login que exibe formulário de login
@@ -53,3 +54,8 @@ Route::get('/auth/password/reset/{token}', function (string $token) {
 Route::post('/auth/password/update', [AuthController::class, 'resetPassword'])
     ->middleware('throttle:3,1')
     ->name('password.update');
+
+Route::middleware('auth')->group(function (): void {
+    Route::get('/account', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/account', [ProfileController::class, 'update'])->name('profile.update');
+});

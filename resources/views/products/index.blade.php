@@ -1,51 +1,26 @@
-@extends('layouts.app')
-<!-- herdando html e css do layout -->
+@extends('layouts.storefront', ['title' => 'Catálogo'])
+
 @section('content')
-
-    <h1>Products</h1>
-
-    <ul>
-        @foreach($products as $product)
-            <li>
-                {{ $product->name }} - ${{ $product->price }}
-
-                <a href="{{ route('products.show', $product) }}">Visualizar Produto</a>
-
-                @auth
-                    @unless(auth()->user()->is_admin)
-                        <form action="{{ route('cart-items.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <label>Quantidade:</label>
-                            <input type="number" name="quantity" value="1" min="1">
-                            <button type="submit">Adicionar ao carrinho</button>
-                        </form>
-                    @endunless
-                @endauth
-            </li>
-        @endforeach
-    </ul>
-
-    <a href="{{ route('categories.index') }}">Visualizar categorias</a>
-    @auth
-        @unless(auth()->user()->is_admin)
-            <a href="{{ route('cart.index') }}">Visualizar carrinho</a>
-            <a href="{{ route('addresses.index') }}">Meus endereços</a>
-            <a href="{{ route('orders.index') }}">Meus pedidos</a>
-        @else
-            <a href="{{ route('addresses.index') }}">Todos os endereços</a>
-            <a href="{{ route('orders.index') }}">Todos os pedidos</a>
-            <a href="{{ route('users.index') }}">Usuários cadastrados</a>
-        @endunless
-    @endauth
-    @can('admin')
-        <a href="{{ route('products.create') }}">Cadastrar produto</a>
-        <a href="{{ route('setting.create') }}">Configurações</a>
-    @endcan
-    @auth
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit">Sair</button>
-        </form>
-    @endauth
+<section class="page-head">
+    <div class="container">
+        <span class="eyebrow">Encontre o que procura</span>
+        <h1>Catálogo</h1>
+        <div class="chip-row mt-5" aria-label="Filtrar produtos por categoria">
+            <a class="chip" href="{{ route('products.index') }}" @if ($selectedCategory === 'all') aria-current="page" @endif>Todos</a>
+            @foreach ($categories as $category)
+                <a class="chip" href="{{ route('products.index', ['category' => $category->id]) }}" @if ($selectedCategory === (string) $category->id) aria-current="page" @endif>{{ $category->name }}</a>
+            @endforeach
+        </div>
+    </div>
+</section>
+<section class="container pb-20">
+    <div class="section__head"><h2 class="section__title">Todos os produtos</h2><span class="section__link text-faint">{{ $products->count() }} produtos</span></div>
+    <div class="product-grid">
+        @forelse ($products as $product)
+            <x-storefront.product-card :product="$product" />
+        @empty
+            <div class="empty-state"><h2>O catálogo está vazio</h2><p>Assim que produtos forem cadastrados, eles aparecerão aqui.</p></div>
+        @endforelse
+    </div>
+</section>
 @endsection
