@@ -1,0 +1,17 @@
+{
+  "name": "dimensiona",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loja e painel Dimensiona (PHP + Tailwind CSS)",
+  "scripts": {
+    "build": "npm run build:loja && npm run build:admin",
+    "build:loja": "tailwindcss -i ./src/css/loja.css -o ./assets/css/style.css --minify && tailwindcss -i ./src/css/loja.css -o ./html/assets/css/style.css --minify",
+    "build:admin": "tailwindcss -i ./src/css/admin.css -o ./admin/assets/admin.css --minify && tailwindcss -i ./src/css/admin.css -o ./html/admin/assets/admin.css --minify",
+    "dev:loja": "tailwindcss -i ./src/css/loja.css -o ./assets/css/style.css --watch",
+    "dev:admin": "tailwindcss -i ./src/css/admin.css -o ./admin/assets/admin.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

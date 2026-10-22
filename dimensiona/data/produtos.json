@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Lorem ipsum dolor",
+    "category": "decoracao",
+    "price": 89.0,
+    "old_price": null,
+    "badge": "novo",
+    "img": "assets/img/placeholder.svg",
+    "rating": 5.0,
+    "reviews": 12,
+    "launch": "Set 2026",
+    "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum eveniet dolorum.",
+    "status": "ativo"
+  },
+  {
+    "id": 2,
+    "name": "Sit amet consectetur",
+    "category": "pecas-tecnicas",
+    "price": 149.0,
+    "old_price": 179.0,
+    "badge": "oferta",
+    "img": "assets/img/placeholder.svg",
+    "rating": 4.8,
+    "reviews": 31,
+    "launch": "Ago 2026",
+    "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nemo repellendus officiis.",
+    "status": "ativo"
+  },
+  {
+    "id": 3,
+    "name": "Adipisicing elit",
+    "category": "miniaturas",
+    "price": 59.0,
+    "old_price": null,
+    "badge": null,
+    "img": "assets/img/placeholder.svg",
+    "rating": 4.9,
+    "reviews": 18,
+    "launch": "Ago 2026",
+    "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora recusandae accusantium quae.",
+    "status": "ativo"
+  },
+  {
+    "id": 4,
+    "name": "Quisquam voluptatem",
+    "category": "prototipos",
+    "price": 119.0,
+    "old_price": null,
+    "badge": "novo",
+    "img": "assets/img/placeholder.svg",
+    "rating": 4.7,
+    "reviews": 9,
+    "launch": "Set 2026",
+    "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt mollitia odit facilis.",
+    "status": "ativo"
+  }
+]

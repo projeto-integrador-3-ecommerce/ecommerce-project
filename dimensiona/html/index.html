@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Início · Dimensiona</title>
+    <meta name="description" content="Dimensiona — impressão 3D FDM, SLA e MSLA com entrega para todo o Brasil.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- Menu lateral -->
+<aside class="sidebar" id="sidebar" aria-label="Menu principal">
+    <div class="sidebar__head">
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.svg" alt="" width="22" height="22">
+            <span>Dimensiona</span>
+        </a>
+        <button class="icon-btn js-sidebar-close" type="button" aria-label="Fechar menu">✕</button>
+    </div>
+
+    <nav class="sidebar__nav">
+        <p class="sidebar__label">Navegação</p>
+        <ul>
+            <li>
+                <a href="index.html" class="is-active" aria-current="page">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></span>
+                    <span class="sidebar__text">Início</span><span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="categorias.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span>
+                    <span class="sidebar__text">Categorias</span>
+                </a>
+            </li>
+            <li>
+                <a href="novidades.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.2 7 19l1.2-5.6L4 9.6 9.6 9z"/></svg></span>
+                    <span class="sidebar__text">Novidades</span>
+                </a>
+            </li>
+            <li>
+                <a href="promocoes.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg></span>
+                    <span class="sidebar__text">Promoções</span>
+                </a>
+            </li>
+            <li>
+                <a href="sobre.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></span>
+                    <span class="sidebar__text">Sobre</span>
+                </a>
+            </li>
+        </ul>
+
+        <p class="sidebar__label">Conta</p>
+        <ul>
+            <li>
+                <a href="pesquisar.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                    <span class="sidebar__text">Pesquisar</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="carrinho.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span>
+                    <span class="sidebar__text">Carrinho</span><span class="cart-count js-cart-count" hidden>0</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="rastreio.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span>
+                    <span class="sidebar__text">Rastrear Pedido</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="login.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span>
+                    <span class="sidebar__text">Login / Cadastro</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <p class="sidebar__foot">© 2026 Dimensiona · CNPJ 00.000.000/0000-00</p>
+</aside>
+<div class="sidebar-overlay js-sidebar-close" aria-hidden="true"></div>
+
+<div class="page">
+    <div class="topbar">
+        Frete grátis em pedidos acima de R$ 299,00 · Use o cupom: <strong>DIMENSIONA10</strong>
+    </div>
+    <button class="menu-btn js-sidebar-open" type="button" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+
+    <main id="conteudo">
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero__grid">
+        <div>
+            <span class="pill-new">Lorem ipsum 2026</span>
+            <h1 class="hero__title">Lorem ipsum dolor sit amet</h1>
+            <p class="hero__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum eveniet dolorum facilis doloribus nemo.</p>
+            <div class="btn-row">
+                <a href="categorias.html" class="btn btn--primary">Ver catálogo</a>
+                <a href="sobre.html#como-funciona" class="btn btn--outline">Como funciona</a>
+            </div>
+            <div class="hero__pills">
+                <span>Lorem ipsum</span>
+                <span>Dolor sit amet</span>
+                <span>Consectetur</span>
+            </div>
+        </div>
+        <div class="hero__media">
+            <img src="assets/img/placeholder-wide.svg" alt="Imagem ilustrativa">
+        </div>
+    </div>
+</section>
+
+<!-- Diferenciais -->
+<section class="features" aria-label="Diferenciais">
+    <div class="feature"><strong>Lorem ipsum</strong><span>Dolor sit amet consectetur</span></div>
+    <div class="feature"><strong>Adipisicing elit</strong><span>Quisquam voluptatem nobis</span></div>
+    <div class="feature"><strong>Eveniet dolorum</strong><span>Facilis doloribus nemo</span></div>
+    <div class="feature"><strong>Repellendus</strong><span>Officiis tempora recusandae</span></div>
+</section>
+
+<!-- Categorias -->
+<section class="section">
+    <div class="container">
+        <div class="section__head">
+            <h2 class="section__title">Lorem ipsum</h2>
+            <a href="categorias.html" class="section__link">Ver todas</a>
+        </div>
+        <div class="cat-grid">
+            <a href="categorias.html?cat=decoracao" class="cat-card">
+                <span class="cat-card__img" aria-hidden="true">Imagem</span>
+                Lorem ipsum
+            </a>
+            <a href="categorias.html?cat=pecas-tecnicas" class="cat-card">
+                <span class="cat-card__img" aria-hidden="true">Imagem</span>
+                Dolor sit
+            </a>
+            <a href="categorias.html?cat=miniaturas" class="cat-card">
+                <span class="cat-card__img" aria-hidden="true">Imagem</span>
+                Amet consectetur
+            </a>
+            <a href="categorias.html?cat=organizadores" class="cat-card">
+                <span class="cat-card__img" aria-hidden="true">Imagem</span>
+                Adipisicing
+            </a>
+            <a href="categorias.html?cat=prototipos" class="cat-card">
+                <span class="cat-card__img" aria-hidden="true">Imagem</span>
+                Elit quisquam
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Destaques -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="section__head">
+            <h2 class="section__title">Dolor sit amet</h2>
+            <a href="categorias.html" class="section__link">Ver todos</a>
+        </div>
+        <div class="product-grid">
+        <article class="product-card" data-category="decoracao" data-name="lorem ipsum dolor lorem ipsum lorem ipsum dolor sit amet consectetur adipisicing elit. quisquam, voluptatum eveniet dolorum.">
+            <div class="product-card__media">
+                <span class="badge badge--new">Novo</span>
+                <img src="assets/img/placeholder.svg" alt="Lorem ipsum dolor" loading="lazy">
+            </div>
+            <div class="product-card__body">
+                <h3 class="product-card__name">Lorem ipsum dolor</h3>
+                <p class="product-card__price">R$ 89,00 </p>
+            </div>
+            <button class="btn btn--ghost btn--block js-add-to-cart" type="button" data-id="1" data-name="Lorem ipsum dolor" data-price="89.0" data-img="assets/img/placeholder.svg">+ Carrinho</button>
+        </article>
+        <article class="product-card" data-category="pecas-tecnicas" data-name="sit amet consectetur dolor sit lorem ipsum dolor sit amet consectetur adipisicing elit. doloribus nemo repellendus officiis.">
+            <div class="product-card__media">
+                <span class="badge badge--sale">Oferta</span>
+                <img src="assets/img/placeholder.svg" alt="Sit amet consectetur" loading="lazy">
+            </div>
+            <div class="product-card__body">
+                <h3 class="product-card__name">Sit amet consectetur</h3>
+                <p class="product-card__price">R$ 149,00 <s>R$ 179,00</s></p>
+            </div>
+            <button class="btn btn--ghost btn--block js-add-to-cart" type="button" data-id="2" data-name="Sit amet consectetur" data-price="149.0" data-img="assets/img/placeholder.svg">+ Carrinho</button>
+        </article>
+        <article class="product-card" data-category="miniaturas" data-name="adipisicing elit amet consectetur lorem ipsum dolor sit amet consectetur adipisicing elit. tempora recusandae accusantium quae.">
+            <div class="product-card__media">
+                
+                <img src="assets/img/placeholder.svg" alt="Adipisicing elit" loading="lazy">
+            </div>
+            <div class="product-card__body">
+                <h3 class="product-card__name">Adipisicing elit</h3>
+                <p class="product-card__price">R$ 59,00 </p>
+            </div>
+            <button class="btn btn--ghost btn--block js-add-to-cart" type="button" data-id="3" data-name="Adipisicing elit" data-price="59.0" data-img="assets/img/placeholder.svg">+ Carrinho</button>
+        </article>
+        <article class="product-card" data-category="prototipos" data-name="quisquam voluptatem elit quisquam lorem ipsum dolor sit amet consectetur adipisicing elit. nesciunt mollitia odit facilis.">
+            <div class="product-card__media">
+                <span class="badge badge--new">Novo</span>
+                <img src="assets/img/placeholder.svg" alt="Quisquam voluptatem" loading="lazy">
+            </div>
+            <div class="product-card__body">
+                <h3 class="product-card__name">Quisquam voluptatem</h3>
+                <p class="product-card__price">R$ 119,00 </p>
+            </div>
+            <button class="btn btn--ghost btn--block js-add-to-cart" type="button" data-id="4" data-name="Quisquam voluptatem" data-price="119.0" data-img="assets/img/placeholder.svg">+ Carrinho</button>
+        </article>
+        </div>
+    </div>
+</section>
+
+<!-- Banner FDM -->
+<section class="section">
+    <div class="container split">
+        <div class="split__media">
+            <img src="assets/img/placeholder-wide.svg" alt="Imagem ilustrativa">
+        </div>
+        <div>
+            <span class="eyebrow">Lorem ipsum</span>
+            <h2>Consectetur adipisicing elit sed</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus officiis tempora recusandae accusantium quae nesciunt.</p>
+            <a href="sobre.html#tecnologias" class="btn btn--primary">Saiba mais</a>
+        </div>
+    </div>
+</section>
+
+<!-- Depoimentos -->
+<section class="section section--alt">
+    <div class="container">
+        <h2 class="section__title center mb-8">Quisquam voluptatem nobis</h2>
+        <div class="testimonials">
+                <figure class="testimonial">
+                    <div class="stars" aria-label="5 de 5 estrelas">★★★★★<span class="off"></span></div>
+                    <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum!”</p>
+                    <figcaption><strong>Lorem Ipsum</strong></figcaption>
+                </figure>
+                <figure class="testimonial">
+                    <div class="stars" aria-label="5 de 5 estrelas">★★★★★<span class="off"></span></div>
+                    <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, dolorum facilis.”</p>
+                    <figcaption><strong>Dolor Sit</strong></figcaption>
+                </figure>
+                <figure class="testimonial">
+                    <div class="stars" aria-label="4 de 5 estrelas">★★★★<span class="off">★</span></div>
+                    <p>“Lorem ipsum dolor sit amet consectetur. Doloribus nemo.”</p>
+                    <figcaption><strong>Amet Consectetur</strong></figcaption>
+                </figure>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="section section--deep newsletter">
+    <div class="container">
+        <img src="assets/img/logo.svg" alt="" width="28" height="28">
+        <h2>Lorem ipsum dolor sit</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum eveniet.</p>
+        <form class="inline-form" id="newsletter-form" novalidate>
+            <input class="input" type="email" id="newsletter-email" aria-label="Seu e-mail" placeholder="seu@email.com" required>
+            <button class="btn btn--primary" type="submit">Assinar</button>
+        </form>
+        <p class="form-note">Lorem ipsum dolor sit amet.</p>
+    </div>
+</section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__grid">
+            <div>
+                <p class="footer__brand">Dimensiona</p>
+                <p class="footer__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                <p class="footer__social"><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">TikTok</a></p>
+            </div>
+            <div>
+                <p class="footer__title">Institucional</p>
+                <ul>
+                    <li><a href="sobre.html">Sobre nós</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Trabalhe conosco</a></li>
+                    <li><a href="sobre.html#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer__title">Ajuda</p>
+                <ul>
+                    <li><a href="login.html">Minha conta</a></li>
+                    <li><a href="rastreio.html">Acompanhar pedido</a></li>
+                    <li><a href="#">Trocas e devoluções</a></li>
+                    <li><a href="#">Política de privacidade</a></li>
+                    <li><a href="#">Termos de uso</a></li>
+                    <li><a href="admin/login.html">Área do lojista</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer__title">Contato</p>
+                <ul>
+                    <li><a href="mailto:contato@dimensiona.com.br">contato@dimensiona.com.br</a></li>
+                    <li><a href="tel:+5511999999999">(11) 9 9999-9999</a></li>
+                    <li>Seg. a Sex. das 9h às 18h</li>
+                </ul>
+                <p class="footer__pay"><span>Pix</span><span>Visa</span><span>Master</span></p>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 Dimensiona. Todos os direitos reservados.</span>
+            <span>CNPJ: 00.000.000/0000-00</span>
+        </div>
+    </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

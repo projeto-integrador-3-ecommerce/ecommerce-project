@@ -1,0 +1,23 @@
+<?php
+
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\OrderController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth')->group(function (): void {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+    Route::get('/orders/{order}/addresses', [AddressController::class, 'selectForOrder'])->name('orders.addresses');
+
+    Route::post('/orders/{order}/addresses', [OrderController::class, 'address'])->name('orders.address');
+
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])
+        ->middleware('can:admin')
+        ->name('orders.status');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+});

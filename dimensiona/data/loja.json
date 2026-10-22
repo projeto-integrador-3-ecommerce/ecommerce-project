@@ -1,0 +1,16 @@
+{
+  "nome": "Dimensiona",
+  "cnpj": "00.000.000/0000-00",
+  "email": "contato@dimensiona.com.br",
+  "telefone": "(11) 9 9999-9999",
+  "frete_gratis_min": 299,
+  "frete_padrao": 24.9,
+  "prazo_entrega": 5,
+  "cep_origem": "01310-100",
+  "cupom": {
+    "codigo": "DIMENSIONA10",
+    "desconto": 10,
+    "minimo": 0
+  },
+  "manutencao": false
+}
