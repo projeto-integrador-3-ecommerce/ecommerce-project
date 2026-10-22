@@ -13,7 +13,7 @@
             </div>
             <div class="hero__pills"><span>FDM</span><span>SLA</span><span>MSLA</span></div>
         </div>
-        <div class="hero__media"><img src="{{ asset('images/dimensiona/placeholder-wide.svg') }}" alt="Peças produzidas em impressão 3D"></div>
+        <div class="hero__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Ilustração de uma peça criada em impressão 3D"></div>
     </div>
 </section>
 
@@ -30,7 +30,7 @@
         <div class="cat-grid">
             @forelse ($categories as $category)
                 <a href="{{ route('products.index', ['category' => $category->id]) }}" class="cat-card">
-                    <span class="cat-card__img" aria-hidden="true">Imagem</span>{{ $category->name }}
+                    <span class="cat-card__img" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>{{ $category->name }}
                     <span class="cat-card__desc">{{ $category->products_count }} produtos</span>
                 </a>
             @empty
@@ -55,7 +55,7 @@
 
 <section class="section">
     <div class="container split">
-        <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder-wide.svg') }}" alt="Impressão 3D em diferentes materiais"></div>
+        <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peça geométrica produzida por impressão 3D"></div>
         <div><span class="eyebrow">Tecnologia e criatividade</span><h2>Do projeto à peça pronta</h2><p>Conheça as tecnologias e os materiais que usamos para transformar ideias em produtos.</p><a href="{{ route('storefront.about') }}#tecnologias" class="btn btn--primary">Saiba mais</a></div>
     </div>
 </section>

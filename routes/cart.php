@@ -4,9 +4,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function (): void {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::middleware('auth')->group(function (): void {
     Route::post('/cart/items', [CartItemController::class, 'store'])->name('cart-items.store');
 
     Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy'])->name('cart-items.destroy');

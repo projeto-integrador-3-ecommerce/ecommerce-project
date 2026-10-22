@@ -9,7 +9,7 @@
 </div></section>
 <section class="stats" aria-label="Tecnologias disponíveis"><div class="stat"><strong>FDM</strong><span>Filamento</span></div><div class="stat"><strong>SLA</strong><span>Resina</span></div><div class="stat"><strong>MSLA</strong><span>Alta resolução</span></div><div class="stat"><strong>3D</strong><span>Novas possibilidades</span></div></section>
 <section class="section"><div class="container split">
-    <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder-wide.svg') }}" alt="Peças produzidas em impressão 3D"></div>
+    <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças produzidas em impressão 3D"></div>
     <div><span class="eyebrow">Nossa proposta</span><h2 class="serif">Tecnologia e criatividade em cada peça</h2><p>Trabalhamos com diferentes métodos de impressão 3D para criar peças funcionais, acessórios e objetos para o dia a dia.</p><ul class="checklist"><li>Catálogo organizado por categoria</li><li>Produtos com informações detalhadas</li><li>Compra e acompanhamento pelo site</li></ul></div>
 </div></section>
 <section class="section section--alt" id="tecnologias"><div class="container">
@@ -26,7 +26,7 @@
         <li><span class="steps__num">02</span><div><strong>Entre na sua conta</strong><span>Faça login para adicionar ao carrinho.</span></div></li>
         <li><span class="steps__num">03</span><div><strong>Finalize o pedido</strong><span>Escolha os itens e acompanhe seu pedido.</span></div></li>
     </ol></div>
-    <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder-wide.svg') }}" alt="Peças impressas em 3D"></div>
+    <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças impressas em 3D"></div>
 </div></section>
 <section class="section cta"><div class="container"><h2>Vamos encontrar o que você precisa?</h2><p>Veja os produtos disponíveis na loja.</p><div class="btn-row"><a href="{{ route('products.index') }}" class="btn btn--primary">Ver catálogo</a><a href="#contato" class="btn btn--outline">Falar conosco</a></div></div></section>
 <footer class="contact-strip" id="contato"><div><strong>Conta</strong><a href="{{ route('login') }}">Acessar ou criar conta</a></div><div><strong>Pedidos</strong><a href="{{ auth()->check() ? route('orders.index') : route('login') }}">Acompanhar pedido</a></div><div><strong>Horário</strong><span>Seg. - Sex. das 9h às 18h</span></div></footer>
