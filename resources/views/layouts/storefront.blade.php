@@ -29,7 +29,9 @@
             <li><a href="{{ route('storefront.novelties') }}" class="{{ request()->routeIs('storefront.novelties') ? 'is-active' : '' }}"><span class="sidebar__text">Novidades</span><span class="chev">›</span></a></li>
             <li><a href="{{ route('storefront.about') }}" class="{{ request()->routeIs('storefront.about') ? 'is-active' : '' }}"><span class="sidebar__text">Sobre</span><span class="chev">›</span></a></li>
             <li><a href="{{ route('storefront.search') }}" class="{{ request()->routeIs('storefront.search') ? 'is-active' : '' }}"><span class="sidebar__text">Pesquisar</span><span class="chev">›</span></a></li>
-            <li><a href="{{ route('cart.index') }}" class="{{ request()->routeIs('cart.*') ? 'is-active' : '' }}"><span class="sidebar__text">Carrinho</span><span class="chev">›</span></a></li>
+            @unless (auth()->check() && auth()->user()->is_admin)
+                <li><a href="{{ route('cart.index') }}" class="{{ request()->routeIs('cart.*') ? 'is-active' : '' }}"><span class="sidebar__text">Carrinho</span><span class="chev">›</span></a></li>
+            @endunless
         </ul>
         <p class="sidebar__label">Conta</p>
         <ul>
@@ -74,11 +76,13 @@
             </button>
         </form>
         <div class="site-actions">
-            <a class="site-actions__cart" href="{{ route('cart.index') }}" aria-label="Abrir carrinho" title="Carrinho">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-                <span>Carrinho</span>
-                <span class="cart-count" data-cart-count hidden aria-label="Itens no carrinho"></span>
-            </a>
+            @unless (auth()->check() && auth()->user()->is_admin)
+                <a class="site-actions__cart" href="{{ route('cart.index') }}" aria-label="Abrir carrinho" title="Carrinho">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+                    <span>Carrinho</span>
+                    <span class="cart-count" data-cart-count hidden aria-label="Itens no carrinho"></span>
+                </a>
+            @endunless
             @guest
                 <a class="site-actions__account" href="{{ route('login') }}">Entrar</a>
             @else

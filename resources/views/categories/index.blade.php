@@ -8,6 +8,7 @@
             @forelse ($categories as $category)
                 <a href="{{ route('products.index', ['category' => $category->id]) }}" class="cat-card">
                     <span class="cat-card__img" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>{{ $category->name }}
+                    @if ($category->description)<span class="cat-card__desc">{{ $category->description }}</span>@endif
                     <span class="cat-card__desc">{{ $category->products_count }} produtos</span>
                 </a>
             @empty
