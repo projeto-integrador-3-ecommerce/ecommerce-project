@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rastreio de pedido · Dimensiona</title>
+    <meta name="description" content="Dimensiona — impressão 3D FDM, SLA e MSLA com entrega para todo o Brasil.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- Menu lateral -->
+<aside class="sidebar" id="sidebar" aria-label="Menu principal">
+    <div class="sidebar__head">
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.svg" alt="" width="22" height="22">
+            <span>Dimensiona</span>
+        </a>
+        <button class="icon-btn js-sidebar-close" type="button" aria-label="Fechar menu">✕</button>
+    </div>
+
+    <nav class="sidebar__nav">
+        <p class="sidebar__label">Navegação</p>
+        <ul>
+            <li>
+                <a href="index.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></span>
+                    <span class="sidebar__text">Início</span>
+                </a>
+            </li>
+            <li>
+                <a href="categorias.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span>
+                    <span class="sidebar__text">Categorias</span>
+                </a>
+            </li>
+            <li>
+                <a href="novidades.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.6.6-4.2 3.8 1.2 5.6L12 16.2 7 19l1.2-5.6L4 9.6 9.6 9z"/></svg></span>
+                    <span class="sidebar__text">Novidades</span>
+                </a>
+            </li>
+            <li>
+                <a href="promocoes.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg></span>
+                    <span class="sidebar__text">Promoções</span>
+                </a>
+            </li>
+            <li>
+                <a href="sobre.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></span>
+                    <span class="sidebar__text">Sobre</span>
+                </a>
+            </li>
+        </ul>
+
+        <p class="sidebar__label">Conta</p>
+        <ul>
+            <li>
+                <a href="pesquisar.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                    <span class="sidebar__text">Pesquisar</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="carrinho.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span>
+                    <span class="sidebar__text">Carrinho</span><span class="cart-count js-cart-count" hidden>0</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="rastreio.html" class="is-active" aria-current="page">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></span>
+                    <span class="sidebar__text">Rastrear Pedido</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+            <li>
+                <a href="login.html">
+                    <span class="sidebar__icon sidebar__icon--line" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span>
+                    <span class="sidebar__text">Login / Cadastro</span>
+                    <span class="chev" aria-hidden="true">›</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <p class="sidebar__foot">© 2026 Dimensiona · CNPJ 00.000.000/0000-00</p>
+</aside>
+<div class="sidebar-overlay js-sidebar-close" aria-hidden="true"></div>
+
+<div class="page">
+    <div class="topbar">
+        Frete grátis em pedidos acima de R$ 299,00 · Use o cupom: <strong>DIMENSIONA10</strong>
+    </div>
+    <button class="menu-btn js-sidebar-open" type="button" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+
+    <main id="conteudo">
+
+
+<section class="page-head page-head--center">
+    <div class="container">
+        <span class="eyebrow">Lorem ipsum dolor</span>
+        <h1>Rastreio de pedido</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+    </div>
+</section>
+
+<section class="container">
+    <form class="track-form" id="track-form" novalidate>
+        <div class="field mb-0">
+            <label for="track-input">Código do pedido</label>
+            <div class="inline-form">
+                <input class="input" type="text" id="track-input" placeholder="Ex: DIM-2026-4821" autocomplete="off" aria-describedby="track-error">
+                <button class="btn btn--gradient" type="submit">Rastrear</button>
+            </div>
+            <p class="form-error" id="track-error"></p>
+        </div>
+        <p class="form-note">
+            Experimente:
+            <button type="button" class="js-track-example">DIM-2026-4821</button> ou
+            <button type="button" class="js-track-example">DIM-2026-3517</button>
+        </p>
+    </form>
+
+    <div class="track-result" id="track-result" hidden aria-live="polite">
+        <div class="track-card">
+            <div class="track-card__head">
+                <div>
+                    <strong id="track-code"></strong>
+                    <p class="form-note mt-0.5" id="track-eta"></p>
+                </div>
+                <span class="status-pill" id="track-status"></span>
+            </div>
+            <ol class="timeline" id="track-timeline"></ol>
+        </div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card">
+            <strong>Lorem ipsum</strong>
+            <p>Dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div class="info-card">
+            <strong>Dolor sit</strong>
+            <p>Quisquam voluptatem nobis eveniet dolorum.</p>
+        </div>
+        <div class="info-card">
+            <strong>Amet consectetur</strong>
+            <p>Lorem ipsum: <a href="mailto:contato@dimensiona.com.br" class="text-cyan">contato@dimensiona.com.br</a></p>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

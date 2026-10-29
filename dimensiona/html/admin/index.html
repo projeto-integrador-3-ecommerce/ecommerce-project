@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Visão Geral · Painel Dimensiona</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/admin.css">
+    <link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+</head>
+<body data-page="visao-geral">
+
+<aside class="a-side" id="a-side" aria-label="Menu do painel">
+    <div class="a-side__head">
+        <img src="../assets/img/logo.svg" alt="" width="20" height="20">
+        <div>
+            <strong>Dimensiona</strong>
+            <span>Painel admin</span>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html" class="is-active" aria-current="page">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span> Visão Geral
+                </a>
+            </li>
+            <li>
+                <a href="pedidos.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></span> Pedidos
+                </a>
+            </li>
+            <li>
+                <a href="produtos.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 15l4-4 4 4 3-3 5 5"/></svg></span> Produtos
+                </a>
+            </li>
+            <li>
+                <a href="categorias.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span> Categorias
+                </a>
+            </li>
+            <li>
+                <a href="impressoras.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M7 14h10v7H7z"/></svg></span> Impressoras
+                </a>
+            </li>
+            <li>
+                <a href="estoque.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h18v13H3zM3 7l2-4h14l2 4M9 11h6"/></svg></span> Estoque
+                </a>
+            </li>
+            <li>
+                <a href="clientes.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.5-5.5 6.5-5.5s5.5 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.2 2.5 3.5 5.5"/></svg></span> Clientes
+                </a>
+            </li>
+            <li>
+                <a href="configuracoes.html">
+                    <span class="a-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span> Configurações
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="a-side__foot">
+        <a href="../index.html">← Voltar à loja</a>
+        <a href="login.html">Sair</a>
+    </div>
+</aside>
+<div class="a-overlay js-side-close" aria-hidden="true"></div>
+
+<div class="a-main">
+    <header class="a-head">
+        <button class="a-menu js-side-open" type="button" aria-label="Abrir menu" aria-controls="a-side">☰</button>
+        <div>
+            <h1>Visão Geral</h1>
+            <p class="a-head__meta" id="a-updated">Atualizado agora</p>
+        </div>
+        <div class="a-head__right">
+            <span class="a-status"><span class="dot"></span> Sistema OK</span>
+            <span class="a-avatar" title="Administrador">AD</span>
+        </div>
+    </header>
+
+    <main class="a-content" id="conteudo">
+
+<section class="kpis" id="kpis" aria-label="Indicadores do mês"></section>
+
+<div class="grid grid--2-1">
+    <section class="panel">
+        <h2 class="panel__title">Receita vs meta (últimos 6 meses)</h2>
+        <div class="chart" id="chart-receita"></div>
+    </section>
+    <section class="panel">
+        <h2 class="panel__title">Vendas por categoria</h2>
+        <div id="chart-categorias"></div>
+    </section>
+</div>
+
+<section class="panel">
+    <h2 class="panel__title">Pedidos por dia (semana atual)</h2>
+    <div class="chart" id="chart-semana"></div>
+</section>
+
+<div class="grid grid--2-1">
+    <section class="panel">
+        <div class="panel__head">
+            <h2 class="panel__title">Pedidos recentes</h2>
+            <a href="pedidos.html" class="panel__link">Ver todos</a>
+        </div>
+        <ul class="list" id="recent-orders"></ul>
+    </section>
+    <section class="panel">
+        <h2 class="panel__title">Top produtos</h2>
+        <ul class="list" id="top-products"></ul>
+    </section>
+</div>
+
+<section class="panel panel--warn" id="stock-alerts" hidden>
+    <h2 class="panel__title">Alertas de estoque</h2>
+    <div class="alert-grid" id="stock-alert-list"></div>
+</section>
+
+
+    </main>
+</div>
+
+<div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal__head">
+            <h2 id="modal-title"></h2>
+            <button type="button" class="a-icon-btn" data-close aria-label="Fechar">✕</button>
+        </div>
+        <div class="modal__body" id="modal-body"></div>
+    </div>
+</div>
+
+<div class="a-toast" id="a-toast" role="status" aria-live="polite"></div>
+
+<script src="assets/demo-data.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>

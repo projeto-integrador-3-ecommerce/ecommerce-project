@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "decoracao",
+    "name": "Lorem ipsum",
+    "desc": "Lorem ipsum dolor sit amet consectetur."
+  },
+  {
+    "slug": "pecas-tecnicas",
+    "name": "Dolor sit",
+    "desc": "Adipisicing elit quisquam voluptatem nobis."
+  },
+  {
+    "slug": "miniaturas",
+    "name": "Amet consectetur",
+    "desc": "Eveniet dolorum facilis doloribus nemo."
+  },
+  {
+    "slug": "organizadores",
+    "name": "Adipisicing",
+    "desc": "Repellendus officiis tempora recusandae."
+  },
+  {
+    "slug": "prototipos",
+    "name": "Elit quisquam",
+    "desc": "Accusantium quae nesciunt mollitia odit."
+  }
+]
