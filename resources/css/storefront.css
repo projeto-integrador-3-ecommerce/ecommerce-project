@@ -174,7 +174,9 @@
     .btn--ghost.is-added { @apply text-cyan border-cyan; }
     .btn--block { @apply w-full; }
     .btn:disabled, .btn.is-disabled { @apply cursor-not-allowed opacity-50; }
-    .btn-row { @apply flex flex-wrap gap-3; }
+    .btn-row { @apply flex flex-wrap items-center gap-3; }
+    /* Form dentro da fila de botões: vira flex para o botão alinhar com os vizinhos */
+    .btn-row form { @apply flex; }
 
     /* ---------- Formulários ---------- */
     .field { @apply flex flex-col gap-1.5 mb-4; }
@@ -263,7 +265,9 @@
     .cat-card__desc { @apply text-faint text-[11px] leading-[1.4]; }
     /* Wrapper do card quando há ações administrativas abaixo dele */
     .cat-cell { @apply flex flex-col; }
-    .cat-cell__actions { @apply flex gap-2; }
+    .cat-cell__actions { @apply flex flex-wrap items-center gap-2; }
+    /* Form dentro das ações: vira flex para o botão alinhar com o "Editar" ao lado */
+    .cat-cell__actions form { @apply flex; }
 
     /* ---------- Home: hero ---------- */
     .hero { @apply pt-24 pb-16 max-mobile:pt-22; }
