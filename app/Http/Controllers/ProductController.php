@@ -73,7 +73,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('products.show', $product);
+        return redirect()->route('products.show', $product)->with('success', 'Produto atualizado com sucesso.');
     }
 
     // função que exibe o forms de criar produto
@@ -113,7 +113,7 @@ class ProductController extends Controller
 
         $product = Product::create($data);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Produto cadastrado com sucesso.');
     }
 
     // função que deleta um produto
@@ -125,6 +125,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Produto removido com sucesso.');
     }
 }
