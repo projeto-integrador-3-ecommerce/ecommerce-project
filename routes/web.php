@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StorefrontController;
+use App\Http\Controllers\SupabaseImageController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -22,3 +23,7 @@ Route::get('/', [StorefrontController::class, 'home'])->name('storefront.home');
 Route::get('/novelties', [StorefrontController::class, 'novelties'])->name('storefront.novelties');
 Route::get('/search', [StorefrontController::class, 'search'])->name('storefront.search');
 Route::get('/about', [StorefrontController::class, 'about'])->name('storefront.about');
+
+Route::post('/admin/supabase/images', [SupabaseImageController::class, 'store'])
+    ->middleware(['auth', 'can:admin', 'throttle:10,1'])
+    ->name('supabase.images.store');

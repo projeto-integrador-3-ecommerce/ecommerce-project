@@ -44,7 +44,10 @@
                 <li><a href="{{ route('addresses.index') }}" class="{{ request()->routeIs('addresses.*') ? 'is-active' : '' }}"><span class="sidebar__text">Meus endereços</span><span class="chev">›</span></a></li>
                 @can('admin')
                     <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'is-active' : '' }}"><span class="sidebar__text">Painel administrativo</span><span class="chev">›</span></a></li>
+                    <li><a href="{{ route('products.create') }}" class="{{ request()->routeIs('products.create') ? 'is-active' : '' }}"><span class="sidebar__text">Cadastrar produto</span><span class="chev">›</span></a></li>
+                    <li><a href="{{ route('categories.create') }}" class="{{ request()->routeIs('categories.create') ? 'is-active' : '' }}"><span class="sidebar__text">Criar categoria</span><span class="chev">›</span></a></li>
                     <li><a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'is-active' : '' }}"><span class="sidebar__text">Usuários cadastrados</span><span class="chev">›</span></a></li>
+                    <li><a href="{{ route('setting.create') }}" class="{{ request()->routeIs('setting.*') ? 'is-active' : '' }}"><span class="sidebar__text">Dados da loja</span><span class="chev">›</span></a></li>
                 @endcan
                 <li><form action="{{ route('logout') }}" method="POST">@csrf<button class="sidebar__text" type="submit">Sair</button></form></li>
             @endguest
@@ -95,7 +98,10 @@
                         @can('admin')
                             <span class="account-menu__divider">Administração</span>
                             <a href="{{ route('admin.dashboard') }}">Painel administrativo</a>
+                            <a href="{{ route('products.create') }}">Cadastrar produto</a>
+                            <a href="{{ route('categories.create') }}">Criar categoria</a>
                             <a href="{{ route('users.index') }}">Usuários cadastrados</a>
+                            <a href="{{ route('setting.create') }}">Dados da loja</a>
                         @endcan
                         <form action="{{ route('logout') }}" method="POST">@csrf<button type="submit">Sair da conta</button></form>
                     </nav>
@@ -121,5 +127,6 @@
     </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+@stack('scripts')
 </body>
 </html>

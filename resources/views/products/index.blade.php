@@ -7,6 +7,12 @@
         <span class="eyebrow">Encontre o que procura</span>
         <h1>{{ $categoryName ?? 'Catálogo' }}</h1>
         <p>Peças selecionadas para transformar suas ideias em realidade.</p>
+        @can('admin')
+            <div class="admin-page-actions">
+                <a class="btn btn--primary" href="{{ route('products.create') }}">Cadastrar produto</a>
+                <a class="btn btn--ghost" href="{{ route('categories.create') }}">Criar categoria</a>
+            </div>
+        @endcan
         <div class="chip-row mt-5" aria-label="Filtrar produtos por categoria">
             <a class="chip {{ $selectedCategory === 'all' ? 'is-active' : '' }}" href="{{ route('products.index') }}" @if ($selectedCategory === 'all') aria-current="page" @endif>Todos</a>
             @foreach ($categories as $category)

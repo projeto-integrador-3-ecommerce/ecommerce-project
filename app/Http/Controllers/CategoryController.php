@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -38,7 +39,23 @@ class CategoryController extends Controller
         $data = $req->validate([
             'name' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:2000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'image_path' => ['nullable', 'string', 'max:255', 'regex:/^supabase:categories\/[a-f0-9-]+\.(?:jpe?g|png|webp)$/i'],
         ]);
+
+        if (! empty($data['image_path'])) {
+            $data['image'] = $data['image_path'];
+        } elseif ($req->hasFile('image')) {
+            $imagePath = $req->file('image')->store('categories', 'public');
+
+            if ($imagePath === false) {
+                return back()->withErrors(['image' => 'Não foi possível salvar a imagem.'])->withInput();
+            }
+
+            $data['image'] = $imagePath;
+        }
+
+        unset($data['image_path']);
 
         Category::create($data);
 
@@ -50,7 +67,31 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:2000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'image_path' => ['nullable', 'string', 'max:255', 'regex:/^supabase:categories\/[a-f0-9-]+\.(?:jpe?g|png|webp)$/i'],
         ]);
+
+        if (! empty($data['image_path'])) {
+            if ($category->image && ! str_starts_with($category->image, 'supabase:')) {
+                Storage::disk('public')->delete($category->image);
+            }
+
+            $data['image'] = $data['image_path'];
+        } elseif ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+
+            if ($imagePath === false) {
+                return back()->withErrors(['image' => 'Não foi possível salvar a imagem.'])->withInput();
+            }
+
+            if ($category->image && ! str_starts_with($category->image, 'supabase:')) {
+                Storage::disk('public')->delete($category->image);
+            }
+
+            $data['image'] = $imagePath;
+        }
+
+        unset($data['image_path']);
 
         $category->update($data);
 
@@ -63,6 +104,10 @@ class CategoryController extends Controller
         if ($category->products()->exists()) {
             return redirect()->route('categories.index')
                 ->withErrors(['category' => 'Remova ou mova os produtos desta categoria antes de excluí-la.']);
+        }
+
+        if ($category->image && ! str_starts_with($category->image, 'supabase:')) {
+            Storage::disk('public')->delete($category->image);
         }
 
         $category->delete();

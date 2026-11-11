@@ -9,6 +9,12 @@
         <a class="info-card" href="{{ route('products.index') }}"><span>Produtos</span><strong>{{ $productsCount }}</strong><p>Ver o catálogo da loja</p></a>
     </div>
 
+    <div class="admin-page-actions">
+        <a class="btn btn--primary" href="{{ route('products.create') }}">Cadastrar produto</a>
+        <a class="btn btn--outline" href="{{ route('categories.create') }}">Criar categoria</a>
+        <a class="btn btn--outline" href="{{ route('setting.create') }}">Dados da loja</a>
+    </div>
+
     <div class="section__head mt-8"><div><span class="eyebrow">Acompanhamento</span><h2 class="section__title">Pedidos em andamento: {{ $openOrdersCount }}</h2></div><a class="section__link" href="{{ route('orders.index') }}">Ver todos os pedidos →</a></div>
 
     @forelse ($recentOrders as $order)

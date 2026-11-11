@@ -1,6 +1,6 @@
 <article class="product-card" data-product-category="{{ $product->category_id }}">
     <a class="product-card__media" href="{{ route('products.show', $product) }}">
-        <img src="{{ $product->image ? Storage::disk('public')->url($product->image) : asset('images/dimensiona/placeholder.svg') }}" alt="{{ $product->name }}" loading="lazy">
+        <img src="{{ $product->image_url ?: asset('images/dimensiona/placeholder.svg') }}" alt="{{ $product->name }}" loading="lazy">
         @if ($product->stock < 1)<span class="product-card__tag">Indisponível</span>@endif
     </a>
     <div class="product-card__body">

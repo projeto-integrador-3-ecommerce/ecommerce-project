@@ -4,7 +4,7 @@
 
     <section class="container section">
         <article class="featured">
-            <div class="featured__media"><img src="{{ $product->image ? Storage::disk('public')->url($product->image) : asset('images/dimensiona/placeholder.svg') }}" alt="{{ $product->name }}"></div>
+            <div class="featured__media"><img src="{{ $product->image_url ?: asset('images/dimensiona/placeholder.svg') }}" alt="{{ $product->name }}"></div>
             <div class="featured__body">
                 <span class="eyebrow">{{ $product->category?->name ?? 'Produto' }}</span>
                 <h1>{{ $product->name }}</h1>

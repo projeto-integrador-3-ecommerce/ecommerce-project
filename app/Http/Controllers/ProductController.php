@@ -55,22 +55,30 @@ class ProductController extends Controller
             'size' => ['required', 'string', 'max:40'],
             'material' => ['required', 'string', 'max:80'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'image_path' => ['nullable', 'string', 'max:255', 'regex:/^supabase:products\/[a-f0-9-]+\.(?:jpe?g|png|webp)$/i'],
         ]);
 
-        if ($req->hasFile('image')) {
+        if (! empty($data['image_path'])) {
+            if ($product->image && ! str_starts_with($product->image, 'supabase:')) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            $data['image'] = $data['image_path'];
+        } elseif ($req->hasFile('image')) {
             $imagePath = $req->file('image')->store('products', 'public');
 
             if ($imagePath === false) {
                 return back()->withErrors(['image' => 'Não foi possível salvar a imagem.'])->withInput();
             }
 
-            if ($product->image) {
+            if ($product->image && ! str_starts_with($product->image, 'supabase:')) {
                 Storage::disk('public')->delete($product->image);
             }
 
             $data['image'] = $imagePath;
         }
 
+        unset($data['image_path']);
         $product->update($data);
 
         return redirect()->route('products.show', $product)->with('success', 'Produto atualizado com sucesso.');
@@ -99,9 +107,12 @@ class ProductController extends Controller
             'material' => ['required', 'string', 'max:80'],
             'category_id' => ['required', 'exists:categories,id'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'image_path' => ['nullable', 'string', 'max:255', 'regex:/^supabase:products\/[a-f0-9-]+\.(?:jpe?g|png|webp)$/i'],
         ]);
 
-        if ($req->hasFile('image')) {
+        if (! empty($data['image_path'])) {
+            $data['image'] = $data['image_path'];
+        } elseif ($req->hasFile('image')) {
             $imagePath = $req->file('image')->store('products', 'public');
 
             if ($imagePath === false) {
@@ -111,6 +122,7 @@ class ProductController extends Controller
             $data['image'] = $imagePath;
         }
 
+        unset($data['image_path']);
         $product = Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Produto cadastrado com sucesso.');
@@ -119,7 +131,7 @@ class ProductController extends Controller
     // função que deleta um produto
     public function destroy(Product $product)
     {
-        if ($product->image) {
+        if ($product->image && ! str_starts_with($product->image, 'supabase:')) {
             Storage::disk('public')->delete($product->image);
         }
 

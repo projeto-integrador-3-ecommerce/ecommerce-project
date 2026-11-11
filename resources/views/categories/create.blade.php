@@ -1,29 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.storefront', ['title' => 'Criar categoria'])
 
 @section('content')
-
-    <h1>Criar Categoria</h1>
-
-    <form action="/categories" method="POST">
-        @csrf
-
-        <div>
-            <label>Name</label>
-            <input type="text" name="name" maxlength="100" value="{{ old('name') }}" placeholder="Enter your category name" required>
+<section class="page-head">
+    <div class="container">
+        <span class="eyebrow">Administração da loja</span>
+        <h1>Criar categoria</h1>
+        <p>Preencha os dados para organizar melhor o catálogo da loja.</p>
+        <div class="admin-page-actions">
+            <a class="btn btn--outline" href="{{ route('categories.index') }}">Voltar para categorias</a>
+            <a class="btn btn--ghost" href="{{ route('products.create') }}">Cadastrar produto</a>
         </div>
-
-        <div>
-            <label for="description">Descrição</label>
-            <textarea id="description" name="description" maxlength="2000">{{ old('description') }}</textarea>
-        </div>
-
-        <button type="submit">Criar Categoria</button>
-    </form>
-
-    @if($errors->any())
-        <div role="alert">
-            {{ $errors->first() }}
-        </div>
-    @endif
-
+    </div>
+</section>
+<section class="container pb-20">
+    @include('categories._form', ['category' => null])
+</section>
 @endsection

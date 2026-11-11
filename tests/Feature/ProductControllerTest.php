@@ -43,6 +43,40 @@ class ProductControllerTest extends TestCase
         ]);
     }
 
+    public function test_product_accepts_a_supabase_image_path(): void
+    {
+        $this->app['config']->set('services.supabase.url', 'https://project.supabase.co');
+        $this->app['config']->set('services.supabase.bucket', 'products');
+        $admin = User::factory()->create();
+        $admin->forceFill(['is_admin' => true])->save();
+        $category = Category::create(['name' => 'Miniaturas']);
+        $imagePath = 'supabase:products/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.png';
+
+        $response = $this->actingAs($admin)->post(route('products.store'), [
+            'category_id' => $category->id,
+            'name' => 'Vaso articulado',
+            'description' => 'Uma peça de teste.',
+            'price' => 25.50,
+            'stock' => 4,
+            'color' => 'Azul',
+            'size' => 'Pequeno',
+            'material' => 'PLA',
+            'image_path' => $imagePath,
+        ]);
+
+        $response->assertRedirect(route('products.index'));
+        $this->assertDatabaseHas('products', [
+            'name' => 'Vaso articulado',
+            'image' => $imagePath,
+        ]);
+
+        $product = Product::query()->where('name', 'Vaso articulado')->firstOrFail();
+
+        $this->get(route('products.show', $product))
+            ->assertOk()
+            ->assertSee('https://project.supabase.co/storage/v1/object/public/products/products/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.png');
+    }
+
     public function test_product_update_replaces_image_and_uses_product_field_names(): void
     {
         Storage::fake('public');

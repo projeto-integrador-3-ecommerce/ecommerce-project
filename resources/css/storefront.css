@@ -189,6 +189,20 @@
     .form-error { @apply text-sale text-[12px] min-h-[1em]; }
     .form-note { @apply text-faint text-[12px] mt-2; }
 
+    /* ---------- Formulários administrativos ---------- */
+    .admin-page-actions { @apply flex flex-wrap gap-3 mt-6; }
+    .admin-form { @apply max-w-[860px] bg-surface border border-line rounded-ui p-6 max-mobile:p-4.5; }
+    .admin-form-grid { @apply grid grid-cols-2 gap-x-5 max-mobile:grid-cols-1; }
+    .admin-form-grid__full { @apply col-span-full; }
+    .admin-form__error {
+        @apply mb-5 p-4 bg-sale/10 border border-sale/40 rounded-ui text-[13px];
+    }
+    .admin-form__error strong { @apply block mb-1; }
+    .admin-form__error ul { @apply m-0 pl-4 text-muted text-[12px]; }
+    .admin-form__preview { @apply w-24 aspect-square object-cover rounded-md border border-line bg-paper; }
+    .admin-form__actions { @apply flex flex-wrap gap-3 mt-2 pt-5 border-t border-line; }
+    .btn--danger { @apply bg-transparent border-sale/50 text-sale hover:bg-sale hover:text-white; }
+
     /* ---------- Badges & chips ---------- */
     .badge {
         @apply absolute top-2.5 left-2.5 z-2 px-2 py-[3px] rounded-[3px]
@@ -247,6 +261,9 @@
                text-cyan font-serif text-[30px] tracking-[.04em];
     }
     .cat-card__desc { @apply text-faint text-[11px] leading-[1.4]; }
+    /* Wrapper do card quando há ações administrativas abaixo dele */
+    .cat-cell { @apply flex flex-col; }
+    .cat-cell__actions { @apply flex gap-2; }
 
     /* ---------- Home: hero ---------- */
     .hero { @apply pt-24 pb-16 max-mobile:pt-22; }

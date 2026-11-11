@@ -1,6 +1,6 @@
 @php($isEditing = $product !== null)
 
-<form action="{{ $isEditing ? route('products.update', $product) : route('products.store') }}" method="POST" enctype="multipart/form-data" class="admin-form">
+<form action="{{ $isEditing ? route('products.update', $product) : route('products.store') }}" method="POST" enctype="multipart/form-data" class="admin-form" data-supabase-image-upload data-upload-url="{{ route('supabase.images.store') }}" data-supabase-url="{{ config('services.supabase.url') }}" data-supabase-bucket="{{ config('services.supabase.bucket') }}">
     @csrf
     @if ($isEditing)
         @method('PUT')
@@ -54,16 +54,18 @@
             <span>Tamanho</span>
             <input class="input" type="text" name="size" maxlength="40" value="{{ old('size', $product?->size) }}" required>
         </label>
+        <input type="hidden" name="image_path" value="{{ old('image_path') }}">
         @if ($isEditing && $product->image)
             <div class="field">
                 <span>Imagem atual</span>
-                <img class="admin-form__preview" src="{{ Storage::disk('public')->url($product->image) }}" alt="Imagem atual de {{ $product->name }}">
+                <img class="admin-form__preview" data-image-preview src="{{ $product->image_url }}" alt="Imagem atual de {{ $product->name }}">
             </div>
         @endif
         <label class="field admin-form-grid__full">
             <span>{{ $isEditing ? 'Substituir imagem (opcional)' : 'Imagem (opcional)' }}</span>
-            <input class="input" type="file" name="image" accept="image/jpeg,image/png,image/webp">
+            <input class="input" type="file" name="image" accept="image/jpeg,image/png,image/webp" data-supabase-folder="products">
             <span class="form-note">Formatos JPG, PNG ou WEBP; até 5 MB.</span>
+            <span class="form-note" data-supabase-upload-status role="status"></span>
         </label>
     </div>
 
@@ -75,3 +77,8 @@
         @endif
     </div>
 </form>
+
+@pushOnce('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="{{ asset('js/supabase.js') }}"></script>
+@endPushOnce

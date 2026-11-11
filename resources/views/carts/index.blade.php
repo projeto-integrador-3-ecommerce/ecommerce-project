@@ -33,7 +33,7 @@
                 @foreach ($cart->cartItems as $item)
                     <article class="cart-item" data-cart-item="{{ $item->id }}">
                         <input type="checkbox" name="cart_item_ids[]" value="{{ $item->id }}" id="cart-item-{{ $item->id }}" form="order-selection" data-cart-select data-item-total="{{ (float) $item->product->price * $item->quantity }}" data-item-quantity="{{ $item->quantity }}" checked aria-label="Selecionar {{ $item->product->name }} para compra">
-                        <img src="{{ $item->product->image ? Storage::disk('public')->url($item->product->image) : asset('images/dimensiona/placeholder.svg') }}" alt="">
+                        <img src="{{ $item->product->image_url ?: asset('images/dimensiona/placeholder.svg') }}" alt="">
                         <div><a class="cart-item__name" href="{{ route('products.show', $item->product) }}">{{ $item->product->name }}</a><p class="cart-item__price">R$ {{ number_format((float) $item->product->price, 2, ',', '.') }}</p><p class="text-muted">Quantidade: <span data-cart-quantity>{{ $item->quantity }}</span> · Subtotal: <span data-cart-subtotal>R$ {{ number_format((float) $item->product->price * $item->quantity, 2, ',', '.') }}</span></p></div>
                         <div class="cart-item__actions">
                             <form action="{{ route('cart-items.add', $item) }}" method="POST" data-cart-mutation>@csrf<button class="btn btn--ghost" type="submit">Aumentar quantidade</button></form>
