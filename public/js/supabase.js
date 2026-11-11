@@ -1,11 +1,15 @@
 const SUPABASE_ANON_KEY = "sb_publishable_IY9vbvhZZt_McWnvmA34mg_1DlXKeMd";
 const SUPABASE_URL = document.querySelector("[data-supabase-url]")?.dataset.supabaseUrl;
 
-if (SUPABASE_URL) {
-    window.supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
+if (SUPABASE_URL && window.supabase) {
+    try {
+        window.supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+    } catch (error) {
+        console.error("Não foi possível inicializar o cliente Supabase.", error);
+    }
 }
 
 document.querySelectorAll("[data-supabase-image-upload]").forEach((form) => {
@@ -22,13 +26,18 @@ document.querySelectorAll("[data-supabase-image-upload]").forEach((form) => {
     form.addEventListener("submit", async (event) => {
         const file = fileInput.files?.[0];
 
-        if (!file || form.dataset.supabaseUploaded === "true" || !window.supabaseClient) {
+        if (!file || form.dataset.supabaseUploaded === "true") {
             return;
         }
 
         event.preventDefault();
 
         if (uploadInProgress) {
+            return;
+        }
+
+        if (!SUPABASE_URL || !form.dataset.supabaseBucket || !form.dataset.uploadUrl) {
+            status.textContent = "Supabase não configurado. Verifique SUPABASE_URL e SUPABASE_BUCKET no Render.";
             return;
         }
 
@@ -49,25 +58,23 @@ document.querySelectorAll("[data-supabase-image-upload]").forEach((form) => {
                 },
                 body: formData,
             });
-            const result = await response.json();
+            const result = await response.json().catch(() => ({}));
 
             if (!response.ok) {
-                throw new Error(result.message || "Não foi possível enviar a imagem.");
+                throw new Error(result.message || `Falha no envio da imagem (HTTP ${response.status}).`);
             }
 
             const bucket = form.dataset.supabaseBucket;
             const path = result.path.replace(/^supabase:/, "");
-            const { data, error } = window.supabaseClient.storage.from(bucket).getPublicUrl(path);
-
-            if (error) {
-                throw error;
-            }
+            const publicUrl = window.supabaseClient
+                ? window.supabaseClient.storage.from(bucket).getPublicUrl(path).data.publicUrl
+                : `${SUPABASE_URL.replace(/\/+$/, "")}/storage/v1/object/public/${encodeURIComponent(bucket)}/${path.split("/").map(encodeURIComponent).join("/")}`;
 
             pathInput.value = result.path;
             const preview = form.querySelector("[data-image-preview]");
 
             if (preview) {
-                preview.src = data.publicUrl;
+                preview.src = publicUrl;
             }
 
             fileInput.disabled = true;

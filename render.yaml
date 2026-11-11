@@ -40,6 +40,12 @@ services:
         value: sync
       - key: FILESYSTEM_DISK
         value: public
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: products
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL

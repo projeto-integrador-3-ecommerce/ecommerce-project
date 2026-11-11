@@ -265,7 +265,7 @@
     .cat-card__desc { @apply text-faint text-[11px] leading-[1.4]; }
     /* Wrapper do card quando há ações administrativas abaixo dele */
     .cat-cell { @apply flex flex-col; }
-    .cat-cell__actions { @apply flex flex-wrap items-center gap-2; }
+    .cat-cell__actions { @apply flex flex-wrap items-center justify-center gap-2 pt-2; }
     /* Form dentro das ações: vira flex para o botão alinhar com o "Editar" ao lado */
     .cat-cell__actions form { @apply flex; }
 
