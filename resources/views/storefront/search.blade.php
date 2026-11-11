@@ -15,7 +15,16 @@
             @foreach (['Impressão 3D', 'Decoração', 'Acessórios'] as $popularTerm)<button type="button" class="chip js-search-term" data-term="{{ $popularTerm }}">{{ $popularTerm }}</button>@endforeach
         </div></div>
         <div class="search-block"><p class="search-block__title">Explorar por categoria</p><div class="cat-row">
-            @foreach ($categories as $category)<a href="{{ route('products.index', ['category' => $category->id]) }}" class="cat-card"><span class="cat-card__img" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>{{ $category->name }}</a>@endforeach
+            @foreach ($categories as $category)
+                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="cat-card">
+                    @if ($category->image_url)
+                        <img class="cat-card__img object-cover" src="{{ $category->image_url }}" alt="">
+                    @else
+                        <span class="cat-card__img" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                    @endif
+                    {{ $category->name }}
+                </a>
+            @endforeach
         </div></div>
     @endif
     <div class="search-block"><p class="search-block__title">{{ $term === '' ? 'Todos os produtos' : 'Resultados para “'.$term.'”' }}</p>

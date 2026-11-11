@@ -31,8 +31,16 @@ class CategoryControllerTest extends TestCase
             'image' => $imagePath,
         ]);
 
+        $imageUrl = 'https://project.supabase.co/storage/v1/object/public/products/categories/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.png';
+
         $this->get(route('categories.index'))
             ->assertSee('Peças em escala para colecionadores.')
-            ->assertSee('https://project.supabase.co/storage/v1/object/public/products/categories/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.png');
+            ->assertSee($imageUrl);
+
+        $this->get(route('storefront.home'))
+            ->assertSee($imageUrl);
+
+        $this->get(route('storefront.search'))
+            ->assertSee($imageUrl);
     }
 }

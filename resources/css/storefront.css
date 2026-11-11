@@ -255,12 +255,15 @@
         @apply flex flex-col items-center justify-start gap-2.5 aspect-[1/1.05] px-2.5 pt-2.5 pb-3.5
                bg-linear-to-b/srgb from-surface-2 to-surface border border-line rounded-ui
                text-center text-[13px] transition-[border-color] duration-200 ease-[ease] hover:border-blue;
+        height: clamp(320px, 30vw, 390px);
+        aspect-ratio: auto;
     }
     /* Placeholder de imagem (mesmo visual de assets/img/placeholder.svg) */
     .cat-card__img {
-        @apply w-full flex-1 min-h-[90px] grid place-items-center rounded-sm
+        @apply w-full flex-none grid place-items-center rounded-sm
                bg-[radial-gradient(circle_at_70%_25%,rgba(25,195,255,.2),transparent_32%),linear-gradient(145deg,#1a2b62,#10183d)]
                text-cyan font-serif text-[30px] tracking-[.04em];
+        height: clamp(150px, 18vw, 240px);
     }
     .cat-card__desc { @apply text-faint text-[11px] leading-[1.4]; }
     /* Wrapper do card quando há ações administrativas abaixo dele */
