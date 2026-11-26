@@ -525,6 +525,39 @@
     .info-card { @apply bg-surface border border-line rounded-ui p-5.5 text-[13px]; }
     .info-card strong { @apply block mt-2.5 mb-1; }
     .info-card p { @apply text-muted text-[12px]; }
+
+    /* ---------- Pagamento ---------- */
+    .auth--wide { @apply max-w-[560px]; }
+    .pay-title { @apply text-[12px] text-muted uppercase tracking-[.08em] mt-6 mb-3; }
+    .pay-methods { @apply grid grid-cols-2 gap-2.5 max-mobile:grid-cols-1; }
+    .pay-method {
+        @apply flex flex-col gap-0.5 p-3.5 bg-bg-deep border border-line rounded-ui cursor-pointer
+               transition-[border-color,background] duration-200 ease-[ease] hover:border-muted;
+    }
+    .pay-method:has(input:checked) { @apply border-blue bg-surface; box-shadow: 0 0 0 3px rgba(31,123,255,.18); }
+    .pay-method:has(input:focus-visible) { @apply border-cyan; }
+    .pay-method strong { @apply text-[13px]; }
+    .pay-method span { @apply text-[11px] text-muted; }
+    .pay-panel { @apply mt-5; }
+    .pay-panel[hidden] { @apply hidden; }
+    .pay-feedback { @apply block mb-4 rounded-ui; }
+    .pay-feedback[hidden] { @apply hidden; }
+    .field-row { @apply grid grid-cols-2 gap-3; }
+
+    .card-preview {
+        @apply flex flex-col justify-between h-[170px] p-5 mb-5 rounded-ui border border-line text-white bg-grad;
+    }
+    .card-preview__type { @apply text-[11px] uppercase tracking-[.12em] opacity-80; }
+    .card-preview__number { @apply text-[19px] font-medium tracking-[.12em] tabular-nums max-mobile:text-[16px]; }
+    .card-preview__foot { @apply flex justify-between gap-3 text-[12px] uppercase tracking-[.06em]; }
+    .card-preview__foot span:first-child { @apply truncate; }
+
+    .pix__qr { @apply mx-auto mt-5 mb-4 size-[220px] p-2 bg-white rounded-ui; }
+    .pix__qr svg { @apply block size-full; }
+    .pix__total { @apply mt-0; }
+    .pix__code { @apply flex gap-2; }
+    .pix__code .input { @apply min-w-0 flex-1 text-[12px]; }
+    .pix__code .btn { @apply flex-none; }
     .guest-cart { @apply max-w-[700px] mx-auto my-4 p-10 text-center bg-surface border border-line rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,.22)]; }
     .guest-cart__icon { @apply grid place-items-center size-16 mx-auto mb-5 rounded-2xl bg-blue/10 text-cyan; }
     .guest-cart__icon svg { @apply size-8; }

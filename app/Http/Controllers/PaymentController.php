@@ -25,7 +25,9 @@ class PaymentController extends Controller
     {
         Gate::authorize('pay', $order);
 
-        return view('payment.create', compact('order'));
+        $pixCode = $this->demoPixCode($order);
+
+        return view('payment.create', compact('order', 'pixCode'));
     }
 
     public function store(Order $order, MercadoPagoClient $mercadoPago): RedirectResponse
@@ -58,5 +60,42 @@ class PaymentController extends Controller
             'status',
             'Retorno recebido. A confirmação será atualizada após a validação do Mercado Pago.'
         );
+    }
+
+    /**
+     * Gera um código Pix "copia e cola" apenas ilustrativo (chave inexistente, sem cobrança real).
+     */
+    private function demoPixCode(Order $order): string
+    {
+        $field = fn (string $id, string $value): string => $id.str_pad((string) strlen($value), 2, '0', STR_PAD_LEFT).$value;
+
+        $payload = $field('00', '01')
+            .$field('26', $field('00', 'br.gov.bcb.pix').$field('01', 'simulacao@dimensiona.example'))
+            .$field('52', '0000')
+            .$field('53', '986')
+            .$field('54', number_format((float) $order->total, 2, '.', ''))
+            .$field('58', 'BR')
+            .$field('59', 'DIMENSIONA')
+            .$field('60', 'SAO PAULO')
+            .$field('62', $field('05', 'DIM'.str_pad((string) $order->id, 6, '0', STR_PAD_LEFT)))
+            .'6304';
+
+        return $payload.$this->crc16($payload);
+    }
+
+    private function crc16(string $payload): string
+    {
+        $crc = 0xFFFF;
+
+        foreach (str_split($payload) as $char) {
+            $crc ^= ord($char) << 8;
+
+            for ($bit = 0; $bit < 8; $bit++) {
+                $crc = ($crc & 0x8000) ? (($crc << 1) ^ 0x1021) : ($crc << 1);
+                $crc &= 0xFFFF;
+            }
+        }
+
+        return strtoupper(str_pad(dechex($crc), 4, '0', STR_PAD_LEFT));
     }
 }

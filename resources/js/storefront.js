@@ -289,3 +289,131 @@ cepInput?.addEventListener('blur', async () => {
         // O preenchimento automático é opcional; os campos continuam editáveis.
     }
 });
+
+// ---------- Pagamento (cartão e Pix: apenas front-end, sem integração) ----------
+const payment = document.querySelector('[data-payment]');
+
+if (payment) {
+    const panels = payment.querySelectorAll('[data-pay-panel]');
+    const digits = (value) => value.replace(/\D/g, '');
+
+    function showPanel(method) {
+        panels.forEach((panel) => {
+            panel.hidden = panel.dataset.payPanel !== method;
+        });
+    }
+
+    payment.querySelectorAll('input[name="payment_method"]').forEach((radio) => {
+        radio.addEventListener('change', () => showPanel(radio.value));
+    });
+    showPanel(payment.querySelector('input[name="payment_method"]:checked')?.value);
+
+    // Cartões: máscaras, pré-visualização e validação básica
+    const masks = {
+        number: (value) => digits(value).slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 '),
+        expiry: (value) => {
+            const numbers = digits(value).slice(0, 4);
+            return numbers.length > 2 ? `${numbers.slice(0, 2)}/${numbers.slice(2)}` : numbers;
+        },
+        cvv: (value) => digits(value).slice(0, 4),
+    };
+    const previewDefaults = { number: '•••• •••• •••• ••••', name: 'Nome no cartão', expiry: 'MM/AA' };
+
+    const isExpired = (expiry) => {
+        const [month, year] = expiry.split('/').map(Number);
+        const now = new Date();
+        const currentYear = now.getFullYear() % 100;
+
+        return year < currentYear || (year === currentYear && month < now.getMonth() + 1);
+    };
+
+    payment.querySelectorAll('[data-card-form]').forEach((form) => {
+        const feedback = form.querySelector('[data-pay-feedback]');
+
+        form.querySelectorAll('[data-field]').forEach((input) => {
+            input.addEventListener('input', () => {
+                const field = input.dataset.field;
+
+                if (masks[field]) input.value = masks[field](input.value);
+                if (field === 'expiry') {
+                    input.setCustomValidity(input.value.length === 5 && isExpired(input.value) ? 'Cartão vencido' : '');
+                }
+
+                const preview = form.querySelector(`[data-preview="${field}"]`);
+                if (preview) preview.textContent = input.value.trim() || previewDefaults[field];
+                feedback.hidden = true;
+            });
+        });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            feedback.textContent = 'Simulação: nenhum dado do cartão foi enviado ou armazenado.';
+            feedback.hidden = false;
+        });
+    });
+
+    // Pix: QR Code ilustrativo (não é um QR Code válido)
+    const pixResult = payment.querySelector('[data-pix-result]');
+    const pixQr = payment.querySelector('[data-pix-qr]');
+    const pixGenerate = payment.querySelector('[data-pix-generate]');
+    const pixCopy = payment.querySelector('[data-pix-copy]');
+
+    function buildFakeQr(seedText) {
+        const size = 29;
+        let seed = 0;
+        for (const char of seedText) seed = (Math.imul(seed, 31) + char.charCodeAt(0)) >>> 0;
+
+        const random = () => {
+            seed = (seed + 0x6d2b79f5) >>> 0;
+            let t = seed;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+
+        const finders = [[0, 0], [size - 7, 0], [0, size - 7]];
+        let path = '';
+
+        for (let y = 0; y < size; y++) {
+            for (let x = 0; x < size; x++) {
+                let dark = random() > 0.5;
+
+                for (const [fx, fy] of finders) {
+                    if (x < fx - 1 || x > fx + 7 || y < fy - 1 || y > fy + 7) continue;
+
+                    const rx = x - fx;
+                    const ry = y - fy;
+                    const inside = rx >= 0 && rx <= 6 && ry >= 0 && ry <= 6;
+                    const ring = rx === 0 || rx === 6 || ry === 0 || ry === 6;
+                    const core = rx >= 2 && rx <= 4 && ry >= 2 && ry <= 4;
+                    dark = inside && (ring || core);
+                }
+
+                if (dark) path += `M${x} ${y}h1v1h-1z`;
+            }
+        }
+
+        return `<svg viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" aria-hidden="true"><rect width="${size}" height="${size}" fill="#fff"/><path d="${path}" fill="#0a1030"/></svg>`;
+    }
+
+    pixGenerate?.addEventListener('click', () => {
+        pixQr.innerHTML = buildFakeQr(pixQr.dataset.seed);
+        pixResult.hidden = false;
+        pixGenerate.hidden = true;
+    });
+
+    pixCopy?.addEventListener('click', async () => {
+        const input = payment.querySelector('[data-pix-code]');
+
+        try {
+            await navigator.clipboard.writeText(input.value);
+        } catch {
+            input.select();
+            document.execCommand('copy');
+        }
+
+        pixCopy.textContent = 'Copiado!';
+        setTimeout(() => { pixCopy.textContent = 'Copiar'; }, 2000);
+    });
+}
