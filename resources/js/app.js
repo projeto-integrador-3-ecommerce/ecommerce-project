@@ -1,5 +1,5 @@
 /*
- * Comportamentos da loja (carrinho via AJAX, busca assíncrona, menu lateral,
+ * Comportamentos da loja (carrinho via AJAX, busca assíncrona, dropdown de categorias,
  * CEP automático, pagamento). Este arquivo NÃO conhece o visual: ele encontra
  * os elementos por atributos data-* e muda estados por atributos também
  * (data-menu-open no <body>, data-visible no #toast).
@@ -9,7 +9,7 @@
 const accountMenu = document.querySelector('[data-account-menu]');
 const sidebar = document.querySelector('#sidebar');
 const menuButton = document.querySelector('[data-sidebar-open]');
-const sidebarCloseButton = sidebar?.querySelector('[data-sidebar-close]');
+const sidebarFirstLink = sidebar?.querySelector('a[href]');
 
 function setSidebarOpen(open) {
     const wasOpen = document.body.hasAttribute('data-menu-open');
@@ -21,13 +21,13 @@ function setSidebarOpen(open) {
     }
 
     if (open && !wasOpen) {
-        sidebarCloseButton?.focus();
+        sidebarFirstLink?.focus();
     } else if (!open && wasOpen) {
         menuButton?.focus();
     }
 }
 
-menuButton?.addEventListener('click', () => setSidebarOpen(true));
+menuButton?.addEventListener('click', () => setSidebarOpen(!document.body.hasAttribute('data-menu-open')));
 document.querySelectorAll('[data-sidebar-close]').forEach((button) => {
     button.addEventListener('click', () => setSidebarOpen(false));
 });
@@ -77,8 +77,53 @@ document.addEventListener('click', (event) => {
     }
 });
 
+document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+    const dots = [...carousel.querySelectorAll('[data-carousel-dot]')];
+    const previous = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+
+    if (!track || slides.length === 0) return;
+
+    let currentIndex = 0;
+
+    function goToSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        const firstLeft = slides[0].offsetLeft;
+        track.scrollTo({ left: slides[currentIndex].offsetLeft - firstLeft, behavior: 'smooth' });
+        dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === currentIndex)));
+    }
+
+    previous?.addEventListener('click', () => goToSlide(currentIndex - 1));
+    next?.addEventListener('click', () => goToSlide(currentIndex + 1));
+    dots.forEach((dot, dotIndex) => {
+        dot.addEventListener('click', () => goToSlide(Number(dot.dataset.carouselIndex ?? dotIndex)));
+    });
+});
+
 const cartItemCheckboxes = () => [...document.querySelectorAll('[data-cart-select]')];
 const selectAllCartItems = document.querySelector('#select-all-cart-items');
+const cartFilterButtons = [...document.querySelectorAll('[data-cart-filter]')];
+let activeCartFilter = 'all';
+
+function applyCartFilter() {
+    cartFilterButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.cartFilter === activeCartFilter));
+    });
+
+    document.querySelectorAll('[data-cart-item]').forEach((item) => {
+        const checkbox = item.querySelector('[data-cart-select]');
+        item.hidden = activeCartFilter === 'selected' && !checkbox?.checked;
+    });
+}
+
+cartFilterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        activeCartFilter = button.dataset.cartFilter ?? 'all';
+        applyCartFilter();
+    });
+});
 
 if (cartItemCheckboxes().length > 0) {
     const selectedCount = document.querySelector('[data-selected-count]');
@@ -104,12 +149,16 @@ if (cartItemCheckboxes().length > 0) {
         }
         if (summaryCount) summaryCount.textContent = String(quantity);
         if (selectedTotal) selectedTotal.textContent = currencyFormatter.format(total);
+        const summaryEstimated = document.querySelector('[data-summary-estimated]');
+        if (summaryEstimated) summaryEstimated.textContent = currencyFormatter.format(total);
+
         if (orderSubmit) {
             orderSubmit.disabled = selectedItems.length === 0;
             orderSubmit.textContent = quantity > 0
-                ? `Finalizar compra · ${quantity} ${quantity === 1 ? 'item' : 'itens'}`
+                ? `Finalizar compra (${quantity})`
                 : 'Selecione ao menos um item';
         }
+        applyCartFilter();
     }
 
     cartItemCheckboxes().forEach((checkbox) => checkbox.addEventListener('change', updateCartSelection));
@@ -156,6 +205,7 @@ function updateCartPage(data) {
         const quantity = item.querySelector('[data-cart-quantity]');
         const subtotal = item.querySelector('[data-cart-subtotal]');
 
+        item.dataset.quantity = String(data.item_quantity);
         if (checkbox) {
             checkbox.dataset.itemQuantity = String(data.item_quantity);
             checkbox.dataset.itemTotal = String(data.item_total);
@@ -171,7 +221,7 @@ function updateCartPage(data) {
         const container = document.querySelector('[data-cart-items-container]');
         const summary = document.querySelector('[data-cart-summary]');
         if (container) {
-            container.innerHTML = `<div data-empty-cart><h2>Seu carrinho está vazio</h2><p>Explore o catálogo e encontre algo para dar forma às suas ideias.</p><a href="${container.dataset.catalogUrl}">Ver catálogo</a></div>`;
+            container.innerHTML = `<div data-empty-cart class="rounded-3xl border border-aqua bg-white px-6 py-14 text-center shadow-sm"><h2 class="text-xl font-semibold text-navy">Seu carrinho está vazio</h2><p class="mt-2 text-sm text-muted">Explore o catálogo e encontre algo para dar forma às suas ideias.</p><a href="${container.dataset.catalogUrl}" class="mt-6 inline-flex min-h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white transition hover:bg-navy/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue">Ver catálogo</a></div>`;
         }
         if (summary) summary.hidden = true;
         return;
@@ -191,15 +241,18 @@ function updateCartPage(data) {
     }
     if (selectedCount) selectedCount.textContent = `${quantity} ${quantity === 1 ? 'item selecionado' : 'itens selecionados'}`;
     if (summaryCount) summaryCount.textContent = String(quantity);
-    if (selectedTotal) {
-        selectedTotal.textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total);
-    }
+    const formattedTotal = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total);
+    if (selectedTotal) selectedTotal.textContent = formattedTotal;
+
+    const summaryEstimated = document.querySelector('[data-summary-estimated]');
+    if (summaryEstimated) summaryEstimated.textContent = formattedTotal;
     if (orderSubmit) {
         orderSubmit.disabled = selectedItems.length === 0;
         orderSubmit.textContent = quantity > 0
-            ? `Finalizar compra · ${quantity} ${quantity === 1 ? 'item' : 'itens'}`
+            ? `Finalizar compra (${quantity})`
             : 'Selecione ao menos um item';
     }
+    applyCartFilter();
 }
 
 document.addEventListener('submit', async (event) => {

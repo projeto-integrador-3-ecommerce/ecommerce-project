@@ -1,33 +1,94 @@
 @extends('layouts.storefront', ['title' => 'Sobre nós'])
 
 @section('content')
-<section><div>
-    <img src="{{ asset('images/dimensiona/logo.svg') }}" alt="" width="36" height="36">
-    <span>Dimensiona</span><h1>Impressão 3D para tirar ideias do papel</h1>
-    <p>Conheça um pouco mais sobre as tecnologias e os processos por trás dos nossos produtos.</p>
-    <a href="{{ route('products.index') }}">Explorar catálogo</a>
-</div></section>
-<section aria-label="Tecnologias disponíveis"><div><strong>FDM</strong><span>Filamento</span></div><div><strong>SLA</strong><span>Resina</span></div><div><strong>MSLA</strong><span>Alta resolução</span></div><div><strong>3D</strong><span>Novas possibilidades</span></div></section>
-<section><div>
-    <div><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças produzidas em impressão 3D"></div>
-    <div><span>Nossa proposta</span><h2>Tecnologia e criatividade em cada peça</h2><p>Trabalhamos com diferentes métodos de impressão 3D para criar peças funcionais, acessórios e objetos para o dia a dia.</p><ul><li>Catálogo organizado por categoria</li><li>Produtos com informações detalhadas</li><li>Compra e acompanhamento pelo site</li></ul></div>
-</div></section>
-<section id="tecnologias"><div>
-    <div><span>Como produzimos</span><h2>Tecnologias de impressão</h2></div>
-    <div>
-        <article><h3>FDM</h3><p>Filamento fundido</p><p>Uma opção versátil para produzir peças resistentes em diferentes formatos.</p></article>
-        <article><h3>SLA</h3><p>Resina</p><p>Processo indicado para peças com detalhes finos e superfícies suaves.</p></article>
-        <article><h3>MSLA</h3><p>Resina com máscara LCD</p><p>Uma tecnologia precisa para imprimir várias peças com alto nível de detalhe.</p></article>
+<section class="rounded-3xl border border-aqua bg-white/80 p-6 text-center shadow-sm sm:p-12">
+    <x-ui.logo size="lg" class="mx-auto" />
+    <span class="mt-5 block text-xs font-semibold tracking-[0.14em] text-teal uppercase">Dimensiona</span>
+    <h1 class="mt-2 text-3xl font-semibold text-navy sm:text-4xl">Impressão 3D para tirar ideias do papel</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-sm text-muted">Conheça um pouco mais sobre os produtos e o cuidado envolvido em cada etapa.</p>
+    <x-ui.link href="{{ route('products.index') }}" class="mt-7">Explorar catálogo</x-ui.link>
+</section>
+
+<section aria-label="O que fazemos" class="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+    @foreach ([['Peças sob medida', 'Feitas para o seu projeto'], ['Protótipos', 'Ideias em volume'], ['Acessórios', 'Para o dia a dia'], ['Decoração', 'Com personalidade']] as $highlight)
+        <div class="rounded-3xl border border-aqua bg-white p-5 text-center shadow-sm">
+            <strong class="block text-lg font-semibold text-navy">{{ $highlight[0] }}</strong>
+            <span class="mt-1 block text-xs text-muted">{{ $highlight[1] }}</span>
+        </div>
+    @endforeach
+</section>
+
+<section class="mt-14 grid items-center gap-8 lg:grid-cols-2">
+    <div class="overflow-hidden rounded-3xl border border-aqua bg-white p-4 shadow-sm">
+        <img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças produzidas em impressão 3D" class="aspect-[4/3] w-full rounded-3xl bg-mist/40 object-contain p-6">
     </div>
-</div></section>
-<section id="como-funciona"><div>
-    <div><span>Do catálogo à compra</span><h2>Como funciona</h2><ol>
-        <li><span>01</span><div><strong>Explore o catálogo</strong><span>Encontre uma peça ou produto.</span></div></li>
-        <li><span>02</span><div><strong>Entre na sua conta</strong><span>Faça login para adicionar ao carrinho.</span></div></li>
-        <li><span>03</span><div><strong>Finalize o pedido</strong><span>Escolha os itens e acompanhe seu pedido.</span></div></li>
-    </ol></div>
-    <div><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças impressas em 3D"></div>
-</div></section>
-<section><div><h2>Vamos encontrar o que você precisa?</h2><p>Veja os produtos disponíveis na loja.</p><div><a href="{{ route('products.index') }}">Ver catálogo</a><a href="#contato">Falar conosco</a></div></div></section>
-<footer id="contato"><div><strong>Conta</strong><a href="{{ route('login') }}">Acessar ou criar conta</a></div><div><strong>Pedidos</strong><a href="{{ auth()->check() ? route('orders.index') : route('login') }}">Acompanhar pedido</a></div><div><strong>Horário</strong><span>Seg. - Sex. das 9h às 18h</span></div></footer>
+    <div>
+        <span class="text-xs font-semibold tracking-[0.14em] text-teal uppercase">Nossa proposta</span>
+        <h2 class="mt-2 text-2xl font-semibold text-navy sm:text-3xl">Tecnologia e criatividade em cada peça</h2>
+        <p class="mt-4 text-sm leading-relaxed text-muted">Criamos peças funcionais, acessórios e objetos para o dia a dia, com atenção ao detalhe em cada etapa.</p>
+        <ul class="mt-6 space-y-3 text-sm text-navy">
+            @foreach (['Catálogo organizado por categoria', 'Produtos com informações detalhadas', 'Compra e acompanhamento pelo site'] as $item)
+                <li class="flex items-start gap-3"><span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-teal text-white"><svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>{{ $item }}</li>
+            @endforeach
+        </ul>
+    </div>
+</section>
+
+<section id="etapas" class="mt-14">
+    <div>
+        <span class="text-xs font-semibold tracking-[0.14em] text-teal uppercase">Nossa forma de trabalhar</span>
+        <h2 class="mt-2 text-2xl font-semibold text-navy sm:text-3xl">Do detalhe à entrega</h2>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+        @foreach ([['01', 'Entendemos a ideia', 'Você escolhe a peça e compartilha o que precisa.'], ['02', 'Cuidamos de cada etapa', 'Preparamos o produto com atenção aos detalhes.'], ['03', 'Acompanhamos a entrega', 'Você acompanha o pedido até receber.']] as $step)
+            <article class="rounded-3xl border border-aqua bg-white p-6 shadow-sm">
+                <x-ui.badge variant="blue">{{ $step[0] }}</x-ui.badge>
+                <h3 class="mt-4 text-base font-semibold text-navy">{{ $step[1] }}</h3>
+                <p class="mt-3 text-sm text-muted">{{ $step[2] }}</p>
+            </article>
+        @endforeach
+    </div>
+</section>
+
+<section id="como-comprar" class="mt-14 grid items-center gap-8 lg:grid-cols-2">
+    <div>
+        <span class="text-xs font-semibold tracking-[0.14em] text-teal uppercase">Do catálogo à compra</span>
+        <h2 class="mt-2 text-2xl font-semibold text-navy sm:text-3xl">Como comprar</h2>
+        <ol class="mt-6 space-y-4">
+            @foreach ([['01', 'Explore o catálogo', 'Encontre uma peça ou produto.'], ['02', 'Entre na sua conta', 'Faça login para adicionar ao carrinho.'], ['03', 'Finalize o pedido', 'Escolha os itens e acompanhe seu pedido.']] as $step)
+                <li class="flex items-start gap-4 rounded-3xl border border-aqua bg-white p-5 shadow-sm">
+                    <span class="grid size-10 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white">{{ $step[0] }}</span>
+                    <div><strong class="block text-sm font-semibold text-navy">{{ $step[1] }}</strong><span class="mt-1 block text-xs text-muted">{{ $step[2] }}</span></div>
+                </li>
+            @endforeach
+        </ol>
+    </div>
+    <div class="overflow-hidden rounded-3xl border border-aqua bg-white p-4 shadow-sm">
+        <img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peças impressas em 3D" class="aspect-square w-full rounded-3xl bg-mist/40 object-contain p-6">
+    </div>
+</section>
+
+<section class="mt-14 rounded-3xl bg-navy p-8 text-center text-white sm:p-12">
+    <h2 class="text-2xl font-semibold sm:text-3xl">Vamos encontrar o que você precisa?</h2>
+    <p class="mt-3 text-sm text-white/75">Veja os produtos disponíveis na loja.</p>
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <x-ui.link href="{{ route('products.index') }}" variant="light">Ver catálogo</x-ui.link>
+        <x-ui.link href="#contato" variant="light">Falar conosco</x-ui.link>
+    </div>
+</section>
+
+<footer id="contato" class="mt-10 grid items-start gap-4 rounded-3xl border border-aqua bg-white p-6 shadow-sm sm:grid-cols-3 sm:gap-6">
+    <div>
+        <strong class="block text-sm font-semibold text-navy">Conta</strong>
+        <a href="{{ route('login') }}" class="mt-2 inline-flex min-h-11 items-center rounded-full px-0 py-2 text-xs leading-relaxed text-muted transition hover:text-navy hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue">Acessar ou criar conta</a>
+    </div>
+    <div>
+        <strong class="block text-sm font-semibold text-navy">Pedidos</strong>
+        <a href="{{ auth()->check() ? route('orders.index') : route('login') }}" class="mt-2 inline-flex min-h-11 items-center rounded-full px-0 py-2 text-xs leading-relaxed text-muted transition hover:text-navy hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue">Acompanhar pedido</a>
+    </div>
+    <div>
+        <strong class="block text-sm font-semibold text-navy">Horário</strong>
+        <span class="mt-2 block py-2 text-xs leading-relaxed text-muted">Seg. - Sex. das 9h às 18h</span>
+    </div>
+</footer>
 @endsection

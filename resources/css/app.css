@@ -14,6 +14,16 @@
  * (ex.: --color-brand-500 => bg-brand-500, text-brand-500, border-brand-500).
  */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-bg: #eefeff;
+    --color-navy: #010f37;
+    --color-aqua: #b3e8ec;
+    --color-mist: #b3dadd;
+    --color-teal: #00a6b2;
+    --color-blue: #0c8ce9;
+    --color-red: #ff0000;
+    --color-muted: #858f90;
+    --color-overlay: #939d9e;
 }
