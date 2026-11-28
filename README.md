@@ -28,3 +28,7 @@ Projeto Integrador, Ecommerce - 3º semestre
 4. Gerar chave
 5. Executar migrations
 6. Iniciar aplicação
+
+## Front-end
+
+O visual está sendo refeito com Tailwind CSS direto nas blades. Veja o passo a passo e as regras em [FRONTEND.md](FRONTEND.md).

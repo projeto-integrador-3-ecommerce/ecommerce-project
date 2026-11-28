@@ -1,71 +1,71 @@
 @extends('layouts.storefront', ['title' => 'Início'])
 
 @section('content')
-<section class="hero">
-    <div class="container hero__grid">
+<section>
+    <div>
         <div>
-            <span class="pill-new">Impressão 3D</span>
-            <h1 class="hero__title">Ideias que ganham forma</h1>
-            <p class="hero__text">Explore peças e produtos feitos com tecnologia de impressão 3D, com cuidado em cada detalhe.</p>
-            <div class="btn-row">
-                <a href="{{ route('products.index') }}" class="btn btn--primary">Ver catálogo</a>
-                <a href="{{ route('storefront.about') }}#como-funciona" class="btn btn--outline">Como funciona</a>
+            <span>Impressão 3D</span>
+            <h1>Ideias que ganham forma</h1>
+            <p>Explore peças e produtos feitos com tecnologia de impressão 3D, com cuidado em cada detalhe.</p>
+            <div>
+                <a href="{{ route('products.index') }}">Ver catálogo</a>
+                <a href="{{ route('storefront.about') }}#como-funciona">Como funciona</a>
             </div>
-            <div class="hero__pills"><span>FDM</span><span>SLA</span><span>MSLA</span></div>
+            <div><span>FDM</span><span>SLA</span><span>MSLA</span></div>
         </div>
-        <div class="hero__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Ilustração de uma peça criada em impressão 3D"></div>
+        <div><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Ilustração de uma peça criada em impressão 3D"></div>
     </div>
 </section>
 
-<section class="features" aria-label="Diferenciais">
-    <div class="feature"><strong>Impressão 3D</strong><span>Peças feitas com precisão</span></div>
-    <div class="feature"><strong>Vários materiais</strong><span>Opções para diferentes projetos</span></div>
-    <div class="feature"><strong>Compra simples</strong><span>Catálogo fácil de explorar</span></div>
-    <div class="feature"><strong>Suporte</strong><span>Estamos aqui para ajudar</span></div>
+<section aria-label="Diferenciais">
+    <div><strong>Impressão 3D</strong><span>Peças feitas com precisão</span></div>
+    <div><strong>Vários materiais</strong><span>Opções para diferentes projetos</span></div>
+    <div><strong>Compra simples</strong><span>Catálogo fácil de explorar</span></div>
+    <div><strong>Suporte</strong><span>Estamos aqui para ajudar</span></div>
 </section>
 
-<section class="section">
-    <div class="container">
-        <div class="section__head"><h2 class="section__title">Categorias</h2><a href="{{ route('categories.index') }}" class="section__link">Ver todas</a></div>
-        <div class="cat-grid">
+<section>
+    <div>
+        <div><h2>Categorias</h2><a href="{{ route('categories.index') }}">Ver todas</a></div>
+        <div>
             @forelse ($categories as $category)
-                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="cat-card">
+                <a href="{{ route('products.index', ['category' => $category->id]) }}">
                     @if ($category->image_url)
-                        <img class="cat-card__img object-cover" src="{{ $category->image_url }}" alt="">
+                        <img src="{{ $category->image_url }}" alt="">
                     @else
-                        <span class="cat-card__img" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                        <span aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                     @endif
                     {{ $category->name }}
-                    <span class="cat-card__desc">{{ $category->products_count }} produtos</span>
+                    <span>{{ $category->products_count }} produtos</span>
                 </a>
             @empty
-                <p class="text-muted">As categorias serão exibidas aqui em breve.</p>
+                <p>As categorias serão exibidas aqui em breve.</p>
             @endforelse
         </div>
     </div>
 </section>
 
-<section class="section section--alt">
-    <div class="container">
-        <div class="section__head"><h2 class="section__title">Produtos em destaque</h2><a href="{{ route('products.index') }}" class="section__link">Ver catálogo</a></div>
-        <div class="product-grid">
+<section>
+    <div>
+        <div><h2>Produtos em destaque</h2><a href="{{ route('products.index') }}">Ver catálogo</a></div>
+        <div>
             @forelse ($products as $product)
                 <x-storefront.product-card :product="$product" />
             @empty
-                <p class="text-muted">Ainda não há produtos cadastrados.</p>
+                <p>Ainda não há produtos cadastrados.</p>
             @endforelse
         </div>
     </div>
 </section>
 
-<section class="section">
-    <div class="container split">
-        <div class="split__media"><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peça geométrica produzida por impressão 3D"></div>
-        <div><span class="eyebrow">Tecnologia e criatividade</span><h2>Do projeto à peça pronta</h2><p>Conheça as tecnologias e os materiais que usamos para transformar ideias em produtos.</p><a href="{{ route('storefront.about') }}#tecnologias" class="btn btn--primary">Saiba mais</a></div>
+<section>
+    <div>
+        <div><img src="{{ asset('images/dimensiona/placeholder.svg') }}" alt="Peça geométrica produzida por impressão 3D"></div>
+        <div><span>Tecnologia e criatividade</span><h2>Do projeto à peça pronta</h2><p>Conheça as tecnologias e os materiais que usamos para transformar ideias em produtos.</p><a href="{{ route('storefront.about') }}#tecnologias">Saiba mais</a></div>
     </div>
 </section>
 
-<section class="section section--deep newsletter">
-    <div class="container"><img src="{{ asset('images/dimensiona/logo.svg') }}" alt="" width="28" height="28"><h2>Encontre seu próximo projeto</h2><p>Explore nosso catálogo e descubra o que a impressão 3D pode criar.</p><a class="btn btn--primary" href="{{ route('products.index') }}">Explorar catálogo</a></div>
+<section>
+    <div><img src="{{ asset('images/dimensiona/logo.svg') }}" alt="" width="28" height="28"><h2>Encontre seu próximo projeto</h2><p>Explore nosso catálogo e descubra o que a impressão 3D pode criar.</p><a href="{{ route('products.index') }}">Explorar catálogo</a></div>
 </section>
 @endsection

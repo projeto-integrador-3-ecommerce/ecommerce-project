@@ -1,8 +1,18 @@
 @import 'tailwindcss';
 
+/*
+ * O Tailwind v4 varre sozinho o projeto atrás de classes (blades, JS...),
+ * mas IGNORA o que está no .gitignore. Por isso a pasta abaixo precisa ser
+ * liberada manualmente: é onde o Laravel guarda as views compiladas.
+ */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/*
+ * Aqui entram os "design tokens" da marca (cores, fontes, espaçamentos).
+ * Tudo que você declarar em --color-*, --font-*, etc. vira classe utilitária
+ * (ex.: --color-brand-500 => bg-brand-500, text-brand-500, border-brand-500).
+ */
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
